@@ -128,3 +128,22 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
   // console.log("shahbaz");
 });
+
+
+/*
+
+Allied Universal Security - Greenville
+. Handles daily operations and other duties related to the 24x7 operations center.
+. Use internal and external systems (internet, news-feed, and other data sources), to monitor risks that could have
+an adverse impact ti assets, facilities, and personnel.
+. Respond to site emergencies as they arise, ensure timely communication with all relevant managers.
+. Detected suspicious activities and watched for criminal acts and rule infractions.
+. Monitored and authorized entrance and departure of employees and visitors.
+. Wrote reports on property damage, theft, presence of unauthorized persons and unusual occurrences.
+. Monitored and reported suspicious activities to local authorities.
+. Monitored central alarm system for fire, intrusion, and duress alarms and responded when needed.
+. Denied entrance to the building to unauthorized persons.
+. Secured all doors in the office and main building after hours.
+
+
+*/
