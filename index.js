@@ -1,9 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
-
 const app = express();
 const port = 5000;
+
 
 app.use(bodyParser.json());
 
@@ -11,8 +11,10 @@ app.use(bodyParser.json());
 const upload = multer({ dest: 'uploads/' });
 
 
-app.post("/check-form", upload.single("file"), (req, res) => {
+app.post("/checkform", upload.single("file"), (req, res) => {
     console.log(req.body);
+
+    console.log(req.file);
 
     res.status(200).json({
         name: req.body.name,
