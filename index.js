@@ -1,218 +1,24 @@
 const express = require("express");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const multer = require("multer");
 
 const app = express();
-
 const port = 5000;
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
-
-app.post("/",(req,res)=>{
-  console.log("body",req.body);
-  const name=req.body.name12;
-  const lname=req.body.lname;
-  const rollN=req.params.rollN;
-
-  res.status(200).json({
-    name:req.body.name,
-    lname:req.body.lname,
-    rollN:req.body.rollN
-  })
-})
-
-app.post("/Juniour-college",(req,res)=>{
-  console.log("body",req.body);
-  const name=req.body.name;
-    const lname=req.body.lname;
-    const rollN=req.body.rollN;
-    const Division=req.body.Division;
-    const stream=req.body.stream;
-
-  res.status(200).json({
-    name:name,
-    lname:lname,
-    rollN:rollN,
-    Divison:Division,
-    stream:stream
-
-  })
- 
-  
-})
+const upload = multer({ dest: 'uploads/' });
 
 
-app.post("/Bank",(req,res)=>{
+app.post("/check-form", upload.single("file"), (req, res) => {
+    console.log(req.body);
 
-  console.log(req.body)
-
-  res.status(200).json({
-    Fullname:req.body.Fullname,
-    DOB:req.body.DOB,
-    Gender:req.body.Gender,
-    Nationality:req.body.Nationality,
-    PhoneN:req.body.PhoneN,
-    Email:req.body.Email,
-    Address:req.body.Address
-
-  })
-})
-
-
-
-app.post("/Login",(req,res)=>{
-  console.log(req.body);
-
-  res.status(200).json({
-    Email:req.body.Email,
-    Password:req.body.Password
-  })
-})
-
-
-app.post("/Signup",(req,res)=>{
-  console.log(req.body)
-
-  res.status(200).json({
-    Fullname:req.body.Fullname,
-    Gender:req.body.Gender,
-    PhoneN:req.body.PhoneN,
-    Email:req.body.Email,
-    ConformationEmail:req.body.ConformationEmail,
-    Password:req.body.Password,
-    ConformedPassword:req.body.ConformedPassword
-  })
-})
-
-
-
-app.post("/Addmision",(req,res)=>{
-  console.log(req.body)
-
-  res.status(200).json({
-    FullName: req.body.FullName,
-    DateOfBirth: req.body.DateOfBirth,
-    Gender: req.body.Gender,
-    Nationality: req.body.Nationality,
-    PassportSizedPhotograph: req.body.PassportSizedPhotograph,
-    PermanentAddress: req.body.PermanentAddress,
-    CurrentAddress: req.body.CurrentAddress, // If different
-    PhoneNumber: req.body.PhoneNumber,
-    EmailAddress: req.body.EmailAddress,
-    CourseProgramAppliedFor: req.body.CourseProgramAppliedFor,
-    PreferredCampusLocation: req.body.PreferredCampusLocation, // If applicable
-    ModeOfStudy: req.body.ModeOfStudy,
-  })
-})
-
-
-app.post("/Neet",(req,res)=>{
-  console.log(req.body)
-
-  res.status(200).json({
-    Address: req.body.Address,
-    PhoneN: req.body.PhoneN,
-    Email: req.body.Email,
-    AadhaarNumber: req.body.AadhaarNumber,
-    IdentificationDocument: req.body.IdentificationDocument,
-    SchoolCollegeLastAttended: req.body.SchoolCollegeLastAttended,
-    YearOfPassing10th: req.body.YearOfPassing10th,
-    YearOfPassing12th: req.body.YearOfPassing12th,
-    Marks10thStandard: req.body.Marks10thStandard,
-    Marks12thStandard: req.body.Marks12thStandard,
-    PaymentMethod: req.body.PaymentMethod,
-    TransactionIDReceiptNumber: req.body.TransactionIDReceiptNumber,
-    PreviousNEETAttempts: req.body.PreviousNEETAttempts,
-    DiscrepanciesInApplication: req.body.DiscrepanciesInApplication,
-    CandidateDeclaration: req.body.CandidateDeclaration,
-    ConsentToShareInformation: req.body.ConsentToShareInformation,
-  })
-})
-
-
-app.post("/JEE-main",(req,res)=>{
-  console.log(req.body)
-
-  res.status(200).json({
-    Address: req.body.Address,
-    PhoneN: req.body.PhoneN,
-    Email: req.body.Email,
-    Marks12thStandard: req.body.Marks12thStandard,
-    PaymentMethod: req.body.PaymentMethod,
-    TransactionIDReceiptNumber: req.body.TransactionIDReceiptNumber,
-    PreviousNEETAttempts: req.body.PreviousNEETAttempts,
-    DiscrepanciesInApplication: req.body.DiscrepanciesInApplication,
-    CandidateDeclaration: req.body.CandidateDeclaration,
-    ConsentToShareInformation: req.body.ConsentToShareInformation,
-    AadhaarNumber: req.body.AadhaarNumber,
-    IdentificationDocument: req.body.IdentificationDocument,
-    SchoolCollegeLastAttended: req.body.SchoolCollegeLastAttended,
-    YearOfPassing10th: req.body.YearOfPassing10th,
-    YearOfPassing12th: req.body.YearOfPassing12th,
-    Marks10thStandard: req.body.Marks10thStandard,
-    
-  })
-})
-
-
-app.post("/Railways-ticket",(req,res)=>{
-  console.log(req.body)
-
-  res.status(200).json({
-    IdentificationDocumentType: req.body.IdentificationDocumentType,
-    IdentificationDocumentNumber: req.body.IdentificationDocumentNumber,
-
-    // Journey Details
-    StartingStation: req.body.StartingStation,
-    DestinationStation: req.body.DestinationStation,
-    DateOfJourney: req.body.DateOfJourney,
-    ClassOfTravel: req.body.ClassOfTravel,
-    TrainNumberAndName: req.body.TrainNumberAndName,
-    Quota: req.body.Quota,
-    SeatPreference: req.body.SeatPreference,
-
-    // Contact Information
-    PhoneNumber: req.body.PhoneNumber,
-    EmailAddress: req.body.EmailAddress,
-    Address: req.body.Address,
-    
-  })
-})
-
-
-
-app.post("/Aroplane",(req,res)=>{
-  console.log(req.body)
-
-  res.status(200).json({
-    EmergencyContactName: req.body.EmergencyContactName,
-    EmergencyContactPhoneNumber: req.body.EmergencyContactPhoneNumber,
-    EmergencyContactRelationship: req.body.EmergencyContactRelationship,
-
-    // Travel Details
-    DepartureCityAirport: req.body.DepartureCityAirport,
-    DestinationCityAirport: req.body.DestinationCityAirport,
-    DepartureDate: req.body.DepartureDate,
-    ReturnDate: req.body.ReturnDate, // if booking a round trip
-    PreferredDepartureTime: req.body.PreferredDepartureTime,
-    PreferredReturnTime: req.body.PreferredReturnTime, // if applicable
-    ClassOfTravel: req.body.ClassOfTravel, 
-    Adults: req.body.Adults,
-    Children: req.body.Children,
-    Infants: req.body.Infants,
-
-    PaymentMethod: req.body.PaymentMethod, // Credit Card, Debit Card, PayPal, etc.
-    CardNumber: req.body.CardNumber,
-    CardExpiryDate: req.body.CardExpiryDate,
-    CardholderName: req.body.CardholderName,
-    CVVCVCCode: req.body.CVVCVCCode,
-    BillingAddress: req.body.BillingAddress,
-    
-  })
-})
-
-
+    res.status(200).json({
+        name: req.body.name,
+        lname: req.body.lname
+    });
+});
 
 
 
@@ -221,6 +27,212 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
   // console.log("shahbaz");
 });
+
+
+
+// app.post("/",(req,res)=>{
+//   console.log("body",req.body);
+//   const name=req.body.name12;
+//   const lname=req.body.lname;
+//   const rollN=req.params.rollN;
+
+//   res.status(200).json({
+//     name:req.body.name,
+//     lname:req.body.lname,
+//     rollN:req.body.rollN
+//   })
+// })
+
+// app.post("/Juniour-college",(req,res)=>{
+//   console.log("body",req.body);
+//   const name=req.body.name;
+//     const lname=req.body.lname;
+//     const rollN=req.body.rollN;
+//     const Division=req.body.Division;
+//     const stream=req.body.stream;
+
+//   res.status(200).json({
+//     name:name,
+//     lname:lname,
+//     rollN:rollN,
+//     Divison:Division,
+//     stream:stream
+
+//   })
+ 
+  
+// })
+
+
+// app.post("/Bank",(req,res)=>{
+
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     Fullname:req.body.Fullname,
+//     DOB:req.body.DOB,
+//     Gender:req.body.Gender,
+//     Nationality:req.body.Nationality,
+//     PhoneN:req.body.PhoneN,
+//     Email:req.body.Email,
+//     Address:req.body.Address
+
+//   })
+// })
+
+
+
+// app.post("/Login",(req,res)=>{
+//   console.log(req.body);
+
+//   res.status(200).json({
+//     Email:req.body.Email,
+//     Password:req.body.Password
+//   })
+// })
+
+
+// app.post("/Signup",(req,res)=>{
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     Fullname:req.body.Fullname,
+//     Gender:req.body.Gender,
+//     PhoneN:req.body.PhoneN,
+//     Email:req.body.Email,
+//     ConformationEmail:req.body.ConformationEmail,
+//     Password:req.body.Password,
+//     ConformedPassword:req.body.ConformedPassword
+//   })
+// })
+
+
+
+// app.post("/Addmision",(req,res)=>{
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     FullName: req.body.FullName,
+//     DateOfBirth: req.body.DateOfBirth,
+//     Gender: req.body.Gender,
+//     Nationality: req.body.Nationality,
+//     PassportSizedPhotograph: req.body.PassportSizedPhotograph,
+//     PermanentAddress: req.body.PermanentAddress,
+//     CurrentAddress: req.body.CurrentAddress, // If different
+//     PhoneNumber: req.body.PhoneNumber,
+//     EmailAddress: req.body.EmailAddress,
+//     CourseProgramAppliedFor: req.body.CourseProgramAppliedFor,
+//     PreferredCampusLocation: req.body.PreferredCampusLocation, // If applicable
+//     ModeOfStudy: req.body.ModeOfStudy,
+//   })
+// })
+
+
+// app.post("/Neet",(req,res)=>{
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     Address: req.body.Address,
+//     PhoneN: req.body.PhoneN,
+//     Email: req.body.Email,
+//     AadhaarNumber: req.body.AadhaarNumber,
+//     IdentificationDocument: req.body.IdentificationDocument,
+//     SchoolCollegeLastAttended: req.body.SchoolCollegeLastAttended,
+//     YearOfPassing10th: req.body.YearOfPassing10th,
+//     YearOfPassing12th: req.body.YearOfPassing12th,
+//     Marks10thStandard: req.body.Marks10thStandard,
+//     Marks12thStandard: req.body.Marks12thStandard,
+//     PaymentMethod: req.body.PaymentMethod,
+//     TransactionIDReceiptNumber: req.body.TransactionIDReceiptNumber,
+//     PreviousNEETAttempts: req.body.PreviousNEETAttempts,
+//     DiscrepanciesInApplication: req.body.DiscrepanciesInApplication,
+//     CandidateDeclaration: req.body.CandidateDeclaration,
+//     ConsentToShareInformation: req.body.ConsentToShareInformation,
+//   })
+// })
+
+
+// app.post("/JEE-main",(req,res)=>{
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     Address: req.body.Address,
+//     PhoneN: req.body.PhoneN,
+//     Email: req.body.Email,
+//     Marks12thStandard: req.body.Marks12thStandard,
+//     PaymentMethod: req.body.PaymentMethod,
+//     TransactionIDReceiptNumber: req.body.TransactionIDReceiptNumber,
+//     PreviousNEETAttempts: req.body.PreviousNEETAttempts,
+//     DiscrepanciesInApplication: req.body.DiscrepanciesInApplication,
+//     CandidateDeclaration: req.body.CandidateDeclaration,
+//     ConsentToShareInformation: req.body.ConsentToShareInformation,
+//     AadhaarNumber: req.body.AadhaarNumber,
+//     IdentificationDocument: req.body.IdentificationDocument,
+//     SchoolCollegeLastAttended: req.body.SchoolCollegeLastAttended,
+//     YearOfPassing10th: req.body.YearOfPassing10th,
+//     YearOfPassing12th: req.body.YearOfPassing12th,
+//     Marks10thStandard: req.body.Marks10thStandard,
+    
+//   })
+// })
+
+
+// app.post("/Railways-ticket",(req,res)=>{
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     IdentificationDocumentType: req.body.IdentificationDocumentType,
+//     IdentificationDocumentNumber: req.body.IdentificationDocumentNumber,
+
+//     // Journey Details
+//     StartingStation: req.body.StartingStation,
+//     DestinationStation: req.body.DestinationStation,
+//     DateOfJourney: req.body.DateOfJourney,
+//     ClassOfTravel: req.body.ClassOfTravel,
+//     TrainNumberAndName: req.body.TrainNumberAndName,
+//     Quota: req.body.Quota,
+//     SeatPreference: req.body.SeatPreference,
+
+//     // Contact Information
+//     PhoneNumber: req.body.PhoneNumber,
+//     EmailAddress: req.body.EmailAddress,
+//     Address: req.body.Address,
+    
+//   })
+// })
+
+
+
+// app.post("/Aroplane",(req,res)=>{
+//   console.log(req.body)
+
+//   res.status(200).json({
+//     EmergencyContactName: req.body.EmergencyContactName,
+//     EmergencyContactPhoneNumber: req.body.EmergencyContactPhoneNumber,
+//     EmergencyContactRelationship: req.body.EmergencyContactRelationship,
+
+//     // Travel Details
+//     DepartureCityAirport: req.body.DepartureCityAirport,
+//     DestinationCityAirport: req.body.DestinationCityAirport,
+//     DepartureDate: req.body.DepartureDate,
+//     ReturnDate: req.body.ReturnDate, // if booking a round trip
+//     PreferredDepartureTime: req.body.PreferredDepartureTime,
+//     PreferredReturnTime: req.body.PreferredReturnTime, // if applicable
+//     ClassOfTravel: req.body.ClassOfTravel, 
+//     Adults: req.body.Adults,
+//     Children: req.body.Children,
+//     Infants: req.body.Infants,
+
+//     PaymentMethod: req.body.PaymentMethod, // Credit Card, Debit Card, PayPal, etc.
+//     CardNumber: req.body.CardNumber,
+//     CardExpiryDate: req.body.CardExpiryDate,
+//     CardholderName: req.body.CardholderName,
+//     CVVCVCCode: req.body.CVVCVCCode,
+//     BillingAddress: req.body.BillingAddress,
+    
+//   })
+// })
+
 
 
 // app.get("/", (req, res) => {
