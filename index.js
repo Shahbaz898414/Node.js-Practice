@@ -1,34 +1,157 @@
+// const express = require("express");
+// const bodyParser = require("body-parser")
+
+// const app = express();
+// const multer = require("multer")
+
+// const port = 5000;
+
+// app.use(bodyParser.json())
+
+// const upload=multer({dest:'/uploads'})
+
+
+
+// app.post("/checkform",upload.single("document1"),(req,res)=>{
+//   console.log(req.body)
+//   console.log(req.document1)
+//   res.status(200).json({
+//     name:req.body.name,
+//     lname:req.body.lname
+
+//   })
+// })
+
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
+
+
+////////////////////////// two files  ///////////////////////////////////
+
+
+
+
+
+// const fileFilter = (req, file, cb) => {
+//     const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+//     if (allowedTypes.includes(file.mimetype)) {
+//         cb(null, true);
+//     } else {
+//         cb(new Error('Invalid file type. Only PDF and DOC files are allowed.'));
+//     }
+// };
+
+// const upload = multer({ 
+//     dest: 'uploads/',
+//     fileFilter: fileFilter
+// });
+
+// const uploadFields = upload.fields([
+//     { name: 'file1', maxCount: 2 }, 
+//     { name: 'file2', maxCount: 1 },
+//     { name: 'file3', maxCount: 1 },
+//     { name: 'file4', maxCount: 1 },
+//     { name: 'file5', maxCount: 1 },
+// ]);
+
+// app.post("/checkform", uploadFields, (req, res) => {
+
+//     console.log(req.body);
+//     console.log(req.files);
+
+//     // Check required fields and files
+//     const requiredFields = ['nameOrg', 'name', 'lname', 'address1', 'city', 'state', 'pincode', 'phone', 'email', 'exitingProject', 'efficiency_strategies', 'para1', 'para2', 'para3', 'para4', 'para5'];
+
+//     const missingFields = requiredFields.filter(field => !req.body[field]);
+//     const requiredFiles = ['file1', 'file2', 'file3', 'file4', 'file5'];
+//     const missingFiles = requiredFiles.filter(file => !req.files[file]);
+
+//     // Field validation regex patterns
+//     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     const phonePattern = /^[0-9]{10}$/; // Assuming a 10-digit phone number
+//     const pincodePattern = /^[0-9]{5,6}$/; // Assuming a 5 or 6-digit pincode
+
+//     // Field validation checks
+//     const invalidFields = [];
+//     if (!emailPattern.test(req.body.email)) invalidFields.push('email');
+//     if (!phonePattern.test(req.body.phone)) invalidFields.push('phone');
+//     if (!pincodePattern.test(req.body.pincode)) invalidFields.push('pincode');
+
+//     if (missingFields.length > 0 || missingFiles.length > 0 || invalidFields.length > 0) {
+//         res.status(400).json({
+//             error: "Missing required fields or files",
+//             missingFields: missingFields,
+//             missingFiles: missingFiles,
+//             invalidFields: invalidFields
+//         });
+//     } else {
+//         res.status(200).json({
+//             nameOrg: req.body.nameOrg,
+//             name: req.body.name,
+//             lname: req.body.lname,
+//             address1: req.body.address1,
+//             address2: req.body.address2,
+//             city: req.body.city,
+//             state: req.body.state,
+//             pincode: req.body.pincode,
+//             phone: req.body.phone,
+//             email: req.body.email,
+//             exitingProject: req.body.exitingProject,
+//             efficiency_strategies: req.body.efficiency_strategies,
+//             para1: req.body.para1,
+//             para2: req.body.para2,
+//             para3: req.body.para3,
+//             para4: req.body.para4,
+//             para5: req.body.para5,
+//             para6: req.body.para6,
+//             files: req.files
+//         });
+//     }
+// });
+
+
+
+////////////////////////// Middleware  ///////////////////////////////////
+
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
+
 const app = express();
 const port = 5000;
-
 
 app.use(bodyParser.json());
 
 
-const upload = multer({ dest: 'uploads/' });
+function nextPro( req,res,next){
+    if(req.body.number){
+        let number = parseInt(req.body.number, 10);
+        if (!isNaN(number)) {
+            number += 2;
+            req.body.number = number;
+        }
+    }
 
+    next();
+}
 
-app.post("/checkform", upload.single("file"), (req, res) => {
-    console.log(req.body);
+app.post('/numberAdd',nextPro, (req,res)=>{
 
-    console.log(req.file);
+    console.log(req.body.number)
 
     res.status(200).json({
-        name: req.body.name,
-        lname: req.body.lname
-    });
-});
-
-
+        number:req.body.number
+    })
+})
 
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-  // console.log("shahbaz");
+    console.log(`Server is running on port ${port}`);
 });
+
 
 
 
@@ -61,10 +184,8 @@ app.listen(port, () => {
 //     stream:stream
 
 //   })
- 
-  
-// })
 
+// })
 
 // app.post("/Bank",(req,res)=>{
 
@@ -82,8 +203,6 @@ app.listen(port, () => {
 //   })
 // })
 
-
-
 // app.post("/Login",(req,res)=>{
 //   console.log(req.body);
 
@@ -92,7 +211,6 @@ app.listen(port, () => {
 //     Password:req.body.Password
 //   })
 // })
-
 
 // app.post("/Signup",(req,res)=>{
 //   console.log(req.body)
@@ -107,8 +225,6 @@ app.listen(port, () => {
 //     ConformedPassword:req.body.ConformedPassword
 //   })
 // })
-
-
 
 // app.post("/Addmision",(req,res)=>{
 //   console.log(req.body)
@@ -128,7 +244,6 @@ app.listen(port, () => {
 //     ModeOfStudy: req.body.ModeOfStudy,
 //   })
 // })
-
 
 // app.post("/Neet",(req,res)=>{
 //   console.log(req.body)
@@ -153,7 +268,6 @@ app.listen(port, () => {
 //   })
 // })
 
-
 // app.post("/JEE-main",(req,res)=>{
 //   console.log(req.body)
 
@@ -174,10 +288,9 @@ app.listen(port, () => {
 //     YearOfPassing10th: req.body.YearOfPassing10th,
 //     YearOfPassing12th: req.body.YearOfPassing12th,
 //     Marks10thStandard: req.body.Marks10thStandard,
-    
+
 //   })
 // })
-
 
 // app.post("/Railways-ticket",(req,res)=>{
 //   console.log(req.body)
@@ -199,11 +312,9 @@ app.listen(port, () => {
 //     PhoneNumber: req.body.PhoneNumber,
 //     EmailAddress: req.body.EmailAddress,
 //     Address: req.body.Address,
-    
+
 //   })
 // })
-
-
 
 // app.post("/Aroplane",(req,res)=>{
 //   console.log(req.body)
@@ -220,7 +331,7 @@ app.listen(port, () => {
 //     ReturnDate: req.body.ReturnDate, // if booking a round trip
 //     PreferredDepartureTime: req.body.PreferredDepartureTime,
 //     PreferredReturnTime: req.body.PreferredReturnTime, // if applicable
-//     ClassOfTravel: req.body.ClassOfTravel, 
+//     ClassOfTravel: req.body.ClassOfTravel,
 //     Adults: req.body.Adults,
 //     Children: req.body.Children,
 //     Infants: req.body.Infants,
@@ -231,11 +342,9 @@ app.listen(port, () => {
 //     CardholderName: req.body.CardholderName,
 //     CVVCVCCode: req.body.CVVCVCCode,
 //     BillingAddress: req.body.BillingAddress,
-    
+
 //   })
 // })
-
-
 
 // app.get("/", (req, res) => {
 //   // console.log(req.query);
@@ -244,14 +353,12 @@ app.listen(port, () => {
 //   });
 // });
 
-
 // app.get("/:fname/:lname", (req, res) => {
 //   console.log(req.params)
 //   res.status(200).json({
 //     fname:req.params.fname,
 //     lname:req.params.lname
 //   });
-
 
 // });
 
@@ -265,7 +372,6 @@ app.listen(port, () => {
 
 // });
 
-
 // app.get("/:PRnumber/random2/:IDnumber", (req, res) => {
 //   console.log(req.params)
 
@@ -275,7 +381,6 @@ app.listen(port, () => {
 //   });
 
 // });
-
 
 // app.get("/:CollegeN/random3/:CourseN/:Division", (req, res) => {
 //   console.log(req.params)
@@ -301,7 +406,6 @@ app.listen(port, () => {
 
 // });
 
-
 // app.get("/:employerName/:employerAddress/:occupation/:annualIncome", (req, res) => {
 //   console.log(req.params)
 
@@ -313,10 +417,6 @@ app.listen(port, () => {
 //   });
 
 // });
-
-
-
-
 
 // app.get("/:typeOfExam/:subjects/:code/:examLevel/:instructions/random6", (req, res) => {
 //   console.log(req.params)
@@ -342,14 +442,6 @@ app.listen(port, () => {
 //   });
 
 // });
-
-
-
-
-
-
-
-
 
 ////////////////////////////// req -> query /////////////////////////////////////////
 
@@ -447,31 +539,23 @@ app.listen(port, () => {
 //   });
 // });
 
-
 // /////////////////////////////////
 // app.get("/Instagram", (req, res) => {
 //   console.log(req.query);
 //   res.status(200).json({
 //     UserName: req.query.UserName,
-//     PhoneNumber: req.query.PhoneNumber, 
+//     PhoneNumber: req.query.PhoneNumber,
 //     OTP: req.query.OTP
 //   });
 // });
 
-
-
 // /////////////////////////////////
-
 
 // app.get("/X", (req, res) => {
 //   console.log(req.query);
 //   res.status(200).json({
-//     Pay: req.query.Pay, 
-//     mail: req.query.mail, 
+//     Pay: req.query.Pay,
+//     mail: req.query.mail,
 //     Bio: req.query.Bio
 //   });
 // });
-
-
-
-
