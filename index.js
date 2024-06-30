@@ -457,11 +457,7 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-/*
 
-#JobAlert #HiringNow #SoftwareEngineer #DataScientist #UXUI #ProjectManager #CareerOpportunities #TechJobs #JobSearch
-
-*/
 
 
 // app.post("/",(req,res)=>{
