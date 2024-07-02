@@ -1,3 +1,371 @@
+const express = require('express');
+const app = express();
+const port = 5000;
+const bodyParser = require('body-parser');
+const multer = require("multer")
+app.use(bodyParser.json())
+const upload = multer({ dest: 'filestorage/' })
+const jwt = require("jsonwebtoken")
+// request
+// query
+// params
+// body
+// form
+// Here is a summary of the different ways to pass data in Express.js:
+// Route Parameters (params): Part of the URL path, accessed via req.params.
+// Query Parameters (query): Appended to the URL after a ?, accessed via req.query.
+// Request Body (body): Data sent in the body of POST, PUT, PATCH, or DELETE requests, accessed via req.body.
+// Request Headers (headers): Additional information sent with the request, accessed via req.headers.
+// Cookies (cookies): Data stored on the client-side, accessed via req.cookies.
+// URL Fragments: Part of the URL after #, used on the client-side for navigation but not sent to the server.
+// app.get("/",(req,res)=>{
+//     console.log("query",req.query)
+//     const name = req.query.name
+//     const sname = req.query.sname
+//     const degree = req.query.degree
+
+//     console.log(name,sname,degree)
+//     res.status(200).json({
+//         "message":"No rice",
+//         "name":name,
+//         "sname":sname,
+//         "degree":degree,
+//     })
+//     // res.redirect('/new-page');
+// })
+
+// app.get("/shahbaz",(req,res)=>{
+//     res.status(200).json({
+//         "message":"I am shahbaz"
+//     })
+//     // res.redirect('/new-page');
+// })
+
+// query -> url?query1=query1value&query2=query2value
+
+// params -> url/:params1/shahabaz/:params2/:params3
+// get -> params,query
+// post -> body, form
+app.get("/:fname/random/:lname",(req,res)=>{
+    console.log("params",req.params)
+    res.status(200).json({
+        "message":"Hello params",
+        "first name": req.params.fname,
+        "last name": req.params.lname
+    })
+    // res.redirect('/new-page');
+})
+
+app.get("/:rollno/random2/:school",(req,res)=>{
+    console.log("params",req.params)
+    res.status(200).json({
+        "message":"Hello params",
+        "roll no": req.params.rollno,
+        "school name": req.params.school
+    })
+    // res.redirect('/new-page');
+})
+
+app.get("/shahbaz",(req,res)=>{
+    res.status(200).json({
+        "message":"I am shahbaz"
+    })
+    // res.redirect('/new-page');
+})
+
+app.post("/",(req,res)=>{
+    console.log("body",req.body)
+    const name = req.body.name11222
+    const lname = req.body.lname
+    const rollno = req.body.rollno
+    res.status(200).json({
+        "message":"No rice",
+        "name":name,
+        lname,
+        rollno
+    })
+    // res.redirect('/new-page');
+})
+
+// form
+app.post("/checkform",upload.single("document"),(req,res)=>{
+    console.log("body",req.body)
+    const name = req.body.name
+    const lname = req.body.lname
+    console.log("req.file",req.file)
+    res.status(200).json({
+        "message":"No rice",
+        "name":name,
+        lname    })
+    // res.redirect('/new-page');
+})
+
+app.post("/checkformMultiple",upload.fields([
+    {
+        name:"document",
+        maxCount:4
+    },
+    {
+        name:"document2",
+        maxCount: 1
+    }
+]),(req,res)=>{
+    console.log("body",req.body)
+    const name = req.body.name
+    const lname = req.body.lname
+    console.log("req.file",req.file)
+    console.log("req.files",req.files["document"])
+    console.log("req.files2",req.files["document2"])
+    res.status(200).json({
+        "message":"No rice",
+        "name":name,
+        lname    })
+    // res.redirect('/new-page');
+})
+
+
+// registeration forms/logins form, normal data entry,with body
+
+
+app.put("/",(req,res)=>{
+    res.status(200).json({
+        "message":"No rice"
+    })
+    // res.redirect('/new-page');
+})
+
+app.delete("/",(req,res)=>{
+    res.status(200).json({
+        "message":"No rice"
+    })
+    // res.redirect('/new-page');
+})
+
+
+
+function nextNumber(req,res,next){
+    console.log("number",req.body.number)
+    req.body.number = req.body.number + 5;
+    next()
+}
+
+
+app.use(nextNumber)
+app.post("/nextN",(req,res)=>{
+    res.json(req.body)
+})
+app.post("/nextN111",(req,res)=>{
+    console.log("req.body",req.body)
+    res.json(req.body)
+})
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
+
+// unsuccesful -> user ki wajah -> client ki wajah -> 400
+// unsuccessful -> server ki wajah -> 500
+// 300 -> redirection
+// server -> ghar -> building -> floor
+// 208
+// 5500
+// 208
+
+
+// express import
+// app = express()
+// app.listen(port,()=>{console.log()})
+// app.get("/",(req,res)=>{res.status(200).json({"message":"hello"})})
+
+
+
+// import body-parser
+// use middleware
+// 
+
+
+// middleware
+// something which is between req and res
+// number =1 && 2 plus && aage bhejna
+// req,res,next
+
+// authentication (account belong karta hai ki nahi)
+// autherization (agar belong karta hai to wohi dikhna chaiye jo tujhe authorized hai)
+
+
+
+const users = [
+    { id: 1, username: 'user1', password: 'password1' },
+    { id: 2, username: 'user2', password: 'password2' },
+    { id: 3, username: 'user3', password: 'password3' },
+    { id: 4, username: 'user4', password: 'password4' },
+    { id: 5, username: 'user5', password: 'password5' },
+    { id: 6, username: 'user6', password: 'password6' },
+    { id: 7, username: 'user7', password: 'password7' },
+    { id: 8, username: 'user8', password: 'password8' },
+];
+
+
+// sign
+
+
+const signKey = "random124444";
+
+
+app.post("/login",(req,res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+    console.log("username",username)
+    console.log("username length",username?.length)
+    if (username && username.length > 0){
+    }else {
+        res.status(400).json({
+            "message":"Enter valid username"
+        })
+    }
+    if (password && password.length > 0){
+    }else {
+        res.status(400).json({
+            "message":"Enter valid password"
+        })
+    }
+    let check = false
+    for(let user of users){
+        // console.log("user",user)
+        if (user.username == username && user.password == password){
+            check = true
+        }
+    }
+
+
+    if (check){
+        let token= jwt.sign({
+            username,
+            password
+        },signKey,{expiresIn:"2h"})
+        res.status(200).json({
+            "token":token
+        })
+    }else{
+        res.status(400).json({
+            "message":"User Not Found"
+        })
+    }
+
+// 
+
+})
+
+
+
+
+
+
+function CheckToken(req,res,next){
+    console.log(req,"req")
+
+    console.log("header",req.headers)
+
+    console.log("autherization",req.headers["authorization"]?.split(" ")[1])
+
+    const token = req.headers["authorization"]?.split(" ")[1]
+    if (token){
+        // signkey
+        jwt.verify(token,signKey,(err,decoded)=>{
+            if (err){
+                res.status(400).json({
+                    "message":"not autherized"
+                })
+            }else{
+                next()
+            }
+        })
+    }else{
+        res.status(400).json({
+            "message":"not autherized"
+        })
+    }
+
+}
+
+
+
+app.get("/school",CheckToken,(req,res)=>{
+    console.log("inside school")
+    res.status(200).json({
+        "message":"I am inside school"
+    })
+})
+
+
+
+// jwt
+
+// json web token
+
+// personal details -> id card
+
+// jwt personal -> token
+
+// watchmen dhiyaan signKey
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // const express = require("express");
 // const bodyParser = require("body-parser")
 
@@ -116,346 +484,356 @@
 ////////////////////////// Middleware  ///////////////////////////////////
 
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const multer = require("multer");
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const multer = require("multer");
 
-const app = express();
-const port = 5000;
+// const app = express();
+// const port = 5000;
 
-app.use(bodyParser.json());
-
-
-function nextPro( req,res,next){
-    if(req.body.number){
-        let number = parseInt(req.body.number, 10);
-        if (!isNaN(number)) {
-            number += 2;
-            req.body.number = number;
-        }
-    }
-
-    next();
-}
-
-app.post('/numberAdd',nextPro, (req,res)=>{
-
-    console.log(req.body.number)
-
-    res.status(200).json({
-        number:req.body.number
-    })
-})
+// app.use(bodyParser.json());
 
 
-function Checktime(req, res, next) {
-    if (req.body.time) {
-        let time = parseInt(req.body.time, 10);
-        if (!isNaN(time) && time >= 1 && time <= 24) {
-            if (time >= 1 && time <= 12) {
-                req.body.period = 'AM';
-            } else {
-                req.body.period = 'PM';
-            }
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid time. Time should be in the range of 1 to 24."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Time is required."
-        });
-    }
-}
+// function nextPro( req,res,next){
+//     if(req.body.number){
+//         let number = parseInt(req.body.number, 10);
+//         if (!isNaN(number)) {
+//             number += 2;
+//             req.body.number = number;
+//         }
+//     }
+
+//     next();
+// }
+
+// app.post('/numberAdd',nextPro, (req,res)=>{
+
+//     console.log(req.body.number)
+
+//     res.status(200).json({
+//         number:req.body.number
+//     })
+// })
 
 
-
-app.post('/TimeNow',Checktime,(req,res)=>{
-    console.log(req.body.time);
-
-    res.status(200).json({
-        time: req.body.time,
-        period: req.body.period
-    })
-})
+// function Checktime(req, res, next) {
+//     if (req.body.time) {
+//         let time = parseInt(req.body.time, 10);
+//         if (!isNaN(time) && time >= 1 && time <= 24) {
+//             if (time >= 1 && time <= 12) {
+//                 req.body.period = 'AM';
+//             } else {
+//                 req.body.period = 'PM';
+//             }
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid time. Time should be in the range of 1 to 24."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Time is required."
+//         });
+//     }
+// }
 
 
 
-function oddEvenMiddleware(req, res, next) {
-    if (req.body.number) {
-        let number = parseInt(req.body.number, 10);
-        if (!isNaN(number)) {
-            req.body.isEven = (number % 2 === 0) ? 'Even' : 'Odd';
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid number. Please provide a valid number."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Number is required."
-        });
-    }
-}
+// app.post('/TimeNow',Checktime,(req,res)=>{
+//     console.log(req.body.time);
+
+//     res.status(200).json({
+//         time: req.body.time,
+//         period: req.body.period
+//     })
+// })
+
+
+
+// function oddEvenMiddleware(req, res, next) {
+//     if (req.body.number) {
+//         let number = parseInt(req.body.number, 10);
+//         if (!isNaN(number)) {
+//             req.body.isEven = (number % 2 === 0) ? 'Even' : 'Odd';
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid number. Please provide a valid number."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Number is required."
+//         });
+//     }
+// }
 
 
 
 
-app.post('/numberCheck', oddEvenMiddleware, (req, res) => {
-    console.log(req.body.number);
+// app.post('/numberCheck', oddEvenMiddleware, (req, res) => {
+//     console.log(req.body.number);
 
-    res.status(200).json({
-        number: req.body.number,
-        type: req.body.isEven
-    });
-});
-
-
-function sortNumbersMiddleware(req, res, next) {
-    if (req.body.numbers && Array.isArray(req.body.numbers)) {
-        let allNumbers = req.body.numbers.every(item => !isNaN(parseInt(item, 10)));
-        if (allNumbers) {
-            req.body.numbers.sort((a, b) => a - b);
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid array. All elements must be numbers."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Numbers array is required."
-        });
-    }
-}
+//     res.status(200).json({
+//         number: req.body.number,
+//         type: req.body.isEven
+//     });
+// });
 
 
-
-app.post('/sortNumbers', sortNumbersMiddleware, (req, res) => {
-    console.log(req.body.numbers);
-
-    res.status(200).json({
-        sortedNumbers: req.body.numbers
-    });
-});
-
-
-function sortAndSumNumbersMiddleware(req, res, next) {
-    if (req.body.numbers && Array.isArray(req.body.numbers)) {
-        let allNumbers = req.body.numbers.every(item => !isNaN(parseInt(item, 10)));
-        if (allNumbers) {
-            req.body.numbers.sort((a, b) => a - b);
-            req.body.sum = req.body.numbers.reduce((acc, num) => acc + num, 0);
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid array. All elements must be numbers."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Numbers array is required."
-        });
-    }
-}
-
-
-app.post('/sortAndSumNumbers', sortAndSumNumbersMiddleware, (req, res) => {
-    console.log(req.body.numbers);
-
-    res.status(200).json({
-        sortedNumbers: req.body.numbers,
-        sum: req.body.sum
-    });
-});
-
-
-function sortAndSumNumbersMiddleware(req, res, next) {
-    if (req.body.numbers && Array.isArray(req.body.numbers)) {
-        let allNumbers = req.body.numbers.every(item => typeof item === 'number' && !isNaN(item));
-        if (allNumbers) {
-            req.body.numbers.sort((a, b) => a - b);
-            req.body.sum = req.body.numbers.reduce((acc, num) => acc + num, 0);
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid array. All elements must be numbers."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Numbers array is required."
-        });
-    }
-}
-
-
-app.post('/sortAndSumNumbers', sortAndSumNumbersMiddleware, (req, res) => {
-    console.log(req.body.numbers);
-
-    res.status(200).json({
-        sortedNumbers: req.body.numbers,
-        sum: req.body.sum
-    });
-});
+// function sortNumbersMiddleware(req, res, next) {
+//     if (req.body.numbers && Array.isArray(req.body.numbers)) {
+//         let allNumbers = req.body.numbers.every(item => !isNaN(parseInt(item, 10)));
+//         if (allNumbers) {
+//             req.body.numbers.sort((a, b) => a - b);
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid array. All elements must be numbers."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Numbers array is required."
+//         });
+//     }
+// }
 
 
 
-function countOddEvenMiddleware(req, res, next) {
-    if (req.body.numbers && Array.isArray(req.body.numbers)) {
-        let oddCount = 0;
-        let evenCount = 0;
+// app.post('/sortNumbers', sortNumbersMiddleware, (req, res) => {
+//     console.log(req.body.numbers);
+
+//     res.status(200).json({
+//         sortedNumbers: req.body.numbers
+//     });
+// });
+
+
+// function sortAndSumNumbersMiddleware(req, res, next) {
+//     if (req.body.numbers && Array.isArray(req.body.numbers)) {
+//         let allNumbers = req.body.numbers.every(item => !isNaN(parseInt(item, 10)));
+//         if (allNumbers) {
+//             req.body.numbers.sort((a, b) => a - b);
+//             req.body.sum = req.body.numbers.reduce((acc, num) => acc + num, 0);
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid array. All elements must be numbers."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Numbers array is required."
+//         });
+//     }
+// }
+
+
+// app.post('/sortAndSumNumbers', sortAndSumNumbersMiddleware, (req, res) => {
+//     console.log(req.body.numbers);
+
+//     res.status(200).json({
+//         sortedNumbers: req.body.numbers,
+//         sum: req.body.sum
+//     });
+// });
+
+
+// function sortAndSumNumbersMiddleware(req, res, next) {
+//     if (req.body.numbers && Array.isArray(req.body.numbers)) {
+//         let allNumbers = req.body.numbers.every(item => typeof item === 'number' && !isNaN(item));
+//         if (allNumbers) {
+//             req.body.numbers.sort((a, b) => a - b);
+//             req.body.sum = req.body.numbers.reduce((acc, num) => acc + num, 0);
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid array. All elements must be numbers."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Numbers array is required."
+//         });
+//     }
+// }
+
+
+// app.post('/sortAndSumNumbers', sortAndSumNumbersMiddleware, (req, res) => {
+//     console.log(req.body.numbers);
+
+//     res.status(200).json({
+//         sortedNumbers: req.body.numbers,
+//         sum: req.body.sum
+//     });
+// });
+
+
+
+// function countOddEvenMiddleware(req, res, next) {
+//     if (req.body.numbers && Array.isArray(req.body.numbers)) {
+//         let oddCount = 0;
+//         let evenCount = 0;
         
-        req.body.numbers.forEach(item => {
-            if (typeof item === 'number' && !isNaN(item)) {
-                if (item % 2 === 0) {
-                    evenCount++;
-                } else {
-                    oddCount++;
-                }
-            }
-        });
+//         req.body.numbers.forEach(item => {
+//             if (typeof item === 'number' && !isNaN(item)) {
+//                 if (item % 2 === 0) {
+//                     evenCount++;
+//                 } else {
+//                     oddCount++;
+//                 }
+//             }
+//         });
 
-        req.body.oddCount = oddCount;
-        req.body.evenCount = evenCount;
+//         req.body.oddCount = oddCount;
+//         req.body.evenCount = evenCount;
 
-        next();
-    } else {
-        res.status(400).json({
-            error: "Numbers array is required."
-        });
-    }
-}
-
-
-app.post('/countOddEven', countOddEvenMiddleware, (req, res) => {
-    console.log(req.body.numbers);
-
-    res.status(200).json({
-        oddCount: req.body.oddCount,
-        evenCount: req.body.evenCount
-    });
-});
-
-function findTwoSumMiddleware(req, res, next) {
-    if (req.body.nums && Array.isArray(req.body.nums) && req.body.target) {
-        const nums = req.body.nums;
-        const target = req.body.target;
-        const map = new Map();
-
-        for (let i = 0; i < nums.length; i++) {
-            const complement = target - nums[i];
-            if (map.has(complement)) {
-                req.body.indices = [map.get(complement), i];
-                next();
-                return;
-            }
-            map.set(nums[i], i);
-        }
-
-        res.status(404).json({
-            error: "No two sum solution found."
-        });
-    } else {
-        res.status(400).json({
-            error: "Invalid input. 'nums' array and 'target' number are required."
-        });
-    }
-}
+//         next();
+//     } else {
+//         res.status(400).json({
+//             error: "Numbers array is required."
+//         });
+//     }
+// }
 
 
-app.post('/findTwoSum', findTwoSumMiddleware, (req, res) => {
-    const { nums, target, indices } = req.body;
+// app.post('/countOddEven', countOddEvenMiddleware, (req, res) => {
+//     console.log(req.body.numbers);
 
-    if (indices) {
-        res.status(200).json({
-            indices: indices
-        });
-    } else {
-        res.status(404).json({
-            error: "No two sum solution found."
-        });
-    }
-});
+//     res.status(200).json({
+//         oddCount: req.body.oddCount,
+//         evenCount: req.body.evenCount
+//     });
+// });
 
+// function findTwoSumMiddleware(req, res, next) {
+//     if (req.body.nums && Array.isArray(req.body.nums) && req.body.target) {
+//         const nums = req.body.nums;
+//         const target = req.body.target;
+//         const map = new Map();
 
-function addTwoNumbersMiddleware(req, res, next) {
-    if (req.body.num1 !== undefined && req.body.num2 !== undefined) {
-        const num1 = parseFloat(req.body.num1);
-        const num2 = parseFloat(req.body.num2);
+//         for (let i = 0; i < nums.length; i++) {
+//             const complement = target - nums[i];
+//             if (map.has(complement)) {
+//                 req.body.indices = [map.get(complement), i];
+//                 next();
+//                 return;
+//             }
+//             map.set(nums[i], i);
+//         }
 
-        if (!isNaN(num1) && !isNaN(num2)) {
-            req.body.sum = num1 + num2;
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid numbers. Please provide valid numeric values."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Both num1 and num2 are required in the request body."
-        });
-    }
-}
-
-
-app.post('/addTwoNumbers', addTwoNumbersMiddleware, (req, res) => {
-    const { num1, num2, sum } = req.body;
-
-    if (sum !== undefined) {
-        res.status(200).json({
-            result: sum
-        });
-    } else {
-        res.status(400).json({
-            error: "Failed to add numbers. Please check your input."
-        });
-    }
-});
+//         res.status(404).json({
+//             error: "No two sum solution found."
+//         });
+//     } else {
+//         res.status(400).json({
+//             error: "Invalid input. 'nums' array and 'target' number are required."
+//         });
+//     }
+// }
 
 
-function reverseIntegerMiddleware(req, res, next) {
-    if (req.body.x !== undefined) {
-        const x = parseInt(req.body.x, 10);
+// app.post('/findTwoSum', findTwoSumMiddleware, (req, res) => {
+//     const { nums, target, indices } = req.body;
 
-        if (!isNaN(x)) {
-            const reversed = parseInt(x.toString().split('').reverse().join(''));
-            req.body.reversed = x < 0 ? -reversed : reversed;
-            next();
-        } else {
-            res.status(400).json({
-                error: "Invalid input. Please provide a valid integer."
-            });
-        }
-    } else {
-        res.status(400).json({
-            error: "Input 'x' is required in the request body."
-        });
-    }
-}
+//     if (indices) {
+//         res.status(200).json({
+//             indices: indices
+//         });
+//     } else {
+//         res.status(404).json({
+//             error: "No two sum solution found."
+//         });
+//     }
+// });
 
 
-app.post('/reverseInteger', reverseIntegerMiddleware, (req, res) => {
-    const { x, reversed } = req.body;
+// function addTwoNumbersMiddleware(req, res, next) {
+//     if (req.body.num1 !== undefined && req.body.num2 !== undefined) {
+//         const num1 = parseFloat(req.body.num1);
+//         const num2 = parseFloat(req.body.num2);
 
-    if (reversed !== undefined) {
-        res.status(200).json({
-            reversed: reversed
-        });
-    } else {
-        res.status(400).json({
-            error: "Failed to reverse integer. Please check your input."
-        });
-    }
-});
+//         if (!isNaN(num1) && !isNaN(num2)) {
+//             req.body.sum = num1 + num2;
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid numbers. Please provide valid numeric values."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Both num1 and num2 are required in the request body."
+//         });
+//     }
+// }
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+
+// app.post('/addTwoNumbers', addTwoNumbersMiddleware, (req, res) => {
+//     const { num1, num2, sum } = req.body;
+
+//     if (sum !== undefined) {
+//         res.status(200).json({
+//             result: sum
+//         });
+//     } else {
+//         res.status(400).json({
+//             error: "Failed to add numbers. Please check your input."
+//         });
+//     }
+// });
+
+
+// function reverseIntegerMiddleware(req, res, next) {
+//     if (req.body.x !== undefined) {
+//         const x = parseInt(req.body.x, 10);
+
+//         if (!isNaN(x)) {
+//             const reversed = parseInt(x.toString().split('').reverse().join(''));
+//             req.body.reversed = x < 0 ? -reversed : reversed;
+//             next();
+//         } else {
+//             res.status(400).json({
+//                 error: "Invalid input. Please provide a valid integer."
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             error: "Input 'x' is required in the request body."
+//         });
+//     }
+// }
+
+
+// app.post('/reverseInteger', reverseIntegerMiddleware, (req, res) => {
+//     const { x, reversed } = req.body;
+
+//     if (reversed !== undefined) {
+//         res.status(200).json({
+//             reversed: reversed
+//         });
+//     } else {
+//         res.status(400).json({
+//             error: "Failed to reverse integer. Please check your input."
+//         });
+//     }
+// });
+
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -864,3 +1242,21 @@ app.listen(port, () => {
 //     Bio: req.query.Bio
 //   });
 // });
+
+
+
+/*
+
+5kg aata
+5kg tel
+1kg chana dal
+1kg tuwar ki dal
+1/2kg vatana
+1 wheem bar soap
+200gm jira
+1 packate namak
+saragXL liquid
+biscuit chura
+
+
+*/
