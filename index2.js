@@ -66,8 +66,26 @@ app.get("/exam-results", CheckToken, (req, res) => {
     }
 });
 
+
+app.put("/update-password", CheckToken, (req, res) => {
+    const { newPassword } = req.body;
+    const username = req.user.username;
+    
+    if (!newPassword || newPassword.length === 0) {
+        return res.status(400).json({ "message": "Enter a valid new password" });
+    }
+
+    const user = users.find(u => u.username === username);
+
+    if (user) {
+        user.password = newPassword;
+        return res.status(200).json({ "message": "Password updated successfully" });
+    } else {
+        return res.status(400).json({ "message": "User Not Found" });
+    }
+});
+
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
-  
     console.log(`Server running on port ${PORT}`);
 });

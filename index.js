@@ -1245,18 +1245,4 @@ app.get("/school",CheckToken,(req,res)=>{
 
 
 
-/*
 
-5kg aata
-5kg tel
-1kg chana dal
-1kg tuwar ki dal
-1/2kg vatana
-1 wheem bar soap
-200gm jira
-1 packate namak
-saragXL liquid
-biscuit chura
-
-
-*/
