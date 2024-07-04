@@ -85,6 +85,53 @@ app.put("/update-password", CheckToken, (req, res) => {
     }
 });
 
+app.put("/update",(req,res)=>{
+    const username = req.body.username;
+    const check = users.find( a => a.username == username)
+    if(!check){
+        res.status(400).json({
+            "message":"User not found"
+        })
+        return;
+    }
+    const password = req.body.password
+    let users2 = []
+    for(let i of users){
+        if ( i.username == username ){
+            users2.push({
+                "id":i.id,
+                "username":i.username,
+                "password":password
+            })
+        }else{
+            users2.push(i)
+        }
+    }
+    res.status(200).json(users2)
+
+})
+
+app.delete("/delete",(req,res)=>{
+    const username = req.body.username;
+    const check = users.find( a => a.username == username)
+    if(!check){
+        res.status(400).json({
+            "message":"User not found"
+        })
+        return;
+    }
+    let users2 = []
+    for(let i of users){
+        if ( i.username == username ){
+            continue;
+        }else{
+            users2.push(i)
+        }
+    }
+    res.status(200).json(users2)
+
+})
+
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
