@@ -337,7 +337,7 @@ const schema4 = Joi.object({
 ,
     fromDate: Joi.date().iso().required(), 
     toDate: Joi.date().iso().required(),
-    policy: Joi.boolean().valid(true).required(),
+    policy: Joi.boolean().required(),
     companySignature: Joi.string().min(1).max(100).optional(),
     
 });
@@ -357,11 +357,3 @@ app.listen(port, () => {
 });
 
 
-
-
-/*
-
-#networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college #JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #DataScientist #UXUI #ProjectManager #CareerOpportunities #TechJobs #JobSearch #Connection
-
-
-*/
