@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 5000;
+const mongoose = require("mongoose")
 const bodyParser = require('body-parser');
 const multer = require("multer")
 app.use(bodyParser.json())

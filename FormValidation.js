@@ -2,11 +2,34 @@ const express = require("express");
 const app = express();
 const port = 5500;
 const bodyParser = require("body-parser");
+// const mongoose = require("mongoose");
 const multer = require("multer");
+const {form1,form2,form3,form5,form4}=require("./form")
 app.use(bodyParser.json());
 const upload = multer({ dest: "filestorage/" });
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const mongoose  = require("mongoose");
+
+// const url=mongodb+srv://shahbaz898khan:123rdfeShahbaz4@cluster0.uou69iw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+const url= "mongodb+srv://shahbaz898khan:123rdfeShahbaz4@cluster0.uou69iw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://shahbaz898khan:123rdfeShahbaz4@cluster0.uou69iw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+      {
+        // No need for deprecated options
+      }
+    );
+    console.log("connected");
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+connectDB();
 
 const schema = Joi.object({
   username: Joi.string().min(3).max(8).required(),
@@ -51,6 +74,8 @@ app.put("/update-val", async (req, res) => {
   }
 });
 
+
+
 const schema1 = Joi.object({
   firstName: Joi.string().min(2).max(30).required(),
   lastName: Joi.string().min(2).max(30).required(),
@@ -79,6 +104,34 @@ const schema1 = Joi.object({
     .required(),
   email: Joi.string().email().min(6).max(30).required(),
 });
+
+app.put("/form1", async (req, res) => {
+  try {
+    const val = await schema1.validateAsync(req.body);
+
+    const newStudent = new form1(val);
+    await newStudent.save();
+
+    res.status(200).send({ message: "Validation successful", data: val });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+app.get("/form1-get", async (req, res) => {
+  try {
+    const user= await form1.find();
+    // console.log(user);
+    // const newStudent = new form1(val);
+    // await newStudent.save();
+
+    res.status(200).send({ message: "Validation successful", Data:user });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+
 
 const schema2 = Joi.object({
   firstName: Joi.string().min(3).max(16).required(),
@@ -119,11 +172,30 @@ app.put("/form2", async (req, res) => {
   try {
     const val = await schema2.validateAsync(req.body);
 
+    const data=new form2(val);
+
+    await data.save();
+
     res.status(200).send({ message: "Validation successful", data: val });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
+
+app.get("/form2-get", async (req, res) => {
+  try {
+    const user= await form2.find();
+    // console.log(user);
+    // const newStudent = new form1(val);
+    // await newStudent.save();
+
+    res.status(200).send({ message: "list of data", Data:user });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+
 
 const schema3 = Joi.object({
   Account: Joi.string()
@@ -228,11 +300,27 @@ app.put("/form3", async (req, res) => {
   try {
     const val = await schema3.validateAsync(req.body);
 
+    const data = new form3(val)
+    await  data.save(); 
+
     res.status(200).send({ message: "Validation successful", data: val });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
+
+app.get("/form3-get", async (req,res)=>{
+  try {
+    const user= await form3.find();
+    // console.log(user);
+    // const newStudent = new form1(val);
+    // await newStudent.save();
+
+    res.status(200).send({ message: "list of data", Data:user });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+})
 
 const schema5 = Joi.object({
   firstName: Joi.string().min(3).max(16).required(),
@@ -315,11 +403,28 @@ app.put("/form5", async (req, res) => {
   try {
     const val = await schema5.validateAsync(req.body);
 
+    const data = new form5(val);
+
+      await data.save();
+
+
     res.status(200).send({ message: "Validation successful", data: val });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
+
+
+app.get("/form5-get", async (req,res)=>{
+  try{
+    const data= await form5.find();
+
+    res.status(200).send({ message: "List of data", data: data });
+  } catch(err){
+    res.status(400).send({ message: err.message });
+  }
+})
+
 
 
 
@@ -344,13 +449,34 @@ const schema4 = Joi.object({
 
 app.put("/form4", async (req, res) => {
     try {
+
+
         const val = await schema4.validateAsync(req.body);
+
+        const data = new form4(val);
+
+        await data.save();
         
-        res.status(200).send({ message: "Validation successful", data: val });
+        res.status(200).send({ message: "Validation successful", data: data });
+
+
     } catch (err) {
         res.status(400).send({ message: err.message });
     }
 });
+
+app.get("/form4-get", async (req,res) =>{
+  try{
+
+    const val = await form4.find();
+
+    res.status(200).send({ message: "List of all the data", data: val });
+  } catch(err){
+    res.status(400).send({ message: err.message });
+  }
+})
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
