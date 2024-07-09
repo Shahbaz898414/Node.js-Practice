@@ -74,6 +74,18 @@ app.put("/update-val", async (req, res) => {
   }
 });
 
+app.get("/update-get", async (req, res) => {
+  try {
+    const user= await form1.find();
+    // console.log(user);
+    // const newStudent = new form1(val);
+    // await newStudent.save();
+
+    res.status(200).send({ message: "Validation successful", Data:user });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
 
 
 const schema1 = Joi.object({
@@ -183,13 +195,112 @@ app.put("/form2", async (req, res) => {
 });
 
 app.get("/form2-get", async (req, res) => {
+  // const { email, companyName } = req.body;
   try {
-    const user= await form2.find();
+    // const user= await form2.find({teamSize:{$lte: 6}});
+    // const user= await form2.find({teamSize:{$lte: 6}});
+    // const user= await form2.find({teamSize:{$eq: 6}});
+    // const user= await form2.find({teamSize:{$gt: 6}});
+
+
+    // const filter = { email: email };
+    
+
+    // const update = { companyName: companyName };
+
+
+    // const options = { new: true, upsert: false };
+
+
+    // const user= await form2.find({teamSize:{$eq: 9}});
+    // const user= await form2.findById("668c01c2eb33157b0b5b596a");
+    // const user= await form2.FindOneAndDelete("668c01c2eb33157b0b5b596a");
+    // const count = await form2.countDocuments({ teamSize: { $eq: 9 } });
+
+    // const updatedUser = await form2.findOneAndUpdate(filter, update, options);
+
     // console.log(user);
     // const newStudent = new form1(val);
     // await newStudent.save();
 
-    res.status(200).send({ message: "list of data", Data:user });
+    // res.status(200).send({ message: "list of data", Data:user });
+    // res.status(200).send({ message: "list of data", Data:count });
+
+
+    //  FindOneAndDelete
+    // const deletedUser = await form2.findOneAndDelete({ teamSize: { $lt: 6 } });
+
+    // if (deletedUser) {
+    //   res.status(200).send({ message: "Document deleted successfully", data: deletedUser });
+    // } else {
+    //   res.status(404).send({ message: "No document found with the specified condition" });
+    // }
+
+///////////////////////////////////////////
+
+    // DeleteMany
+    // const result = await form2.deleteMany({ teamSize: { $lt: 6 } });
+    // res.status(200).send({ message: "Documents deleted successfully", deletedCount: result.deletedCount });
+//////////////////////////////////////////
+// DeleteOne
+// const { id } = req.params;
+// const result = await form2.deleteOne({ _id: id });
+
+// if (result.deletedCount === 1) {
+//   res.status(200).send({ message: "Document deleted successfully" });
+// } else {
+//   res.status(404).send({ message: "Document not found" });
+// }
+
+///////////////////////////
+// updateOne
+// const filter = { teamSize: { $lt: 6 } }; // Find the document where teamSize is less than 6
+//     const update = { $set: { teamSize: 7 } }; // Update the teamSize to 7
+//     const result = await form2.updateOne(filter, update);
+
+//     if (result.modifiedCount > 0) {
+//       res.status(200).send({ message: "Team size updated successfully" });
+//     } else {
+//       res.status(404).send({ message: "No matching document found to update" });
+//     }
+
+
+///////////////////////////////
+// updateMany
+// const { filter, update } = req.body;
+
+//     // Ensure that filter and update are provided in the request body
+//     if (!filter || !update) {
+//       return res.status(400).send({ message: "Filter and update fields are required" });
+//     }
+
+//     // Update many documents that match the filter
+//     const result = await form2.updateMany(filter, update);
+
+//     res.status(200).send({
+//       message: "Documents updated successfully",
+//       modifiedCount: result.modifiedCount,
+//     });
+
+////////////////////////////////////
+// findOneAndDelete
+// const query = req.query;
+
+//     // Find one document based on the query parameters and delete it
+//     const deletedUser = await form2.findOneAndDelete(query);
+
+//     if (deletedUser) {
+//       res.status(200).send({ message: "Document deleted", data: deletedUser });
+//     } else {
+//       res.status(404).send({ message: "No document found to delete" });
+//     }
+
+    // if (updatedUser) {
+    //   res.status(200).send({ message: "Update successful", data: updatedUser });
+    // } else {
+    //   res.status(404).send({ message: "User not found" });
+    // }
+
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
