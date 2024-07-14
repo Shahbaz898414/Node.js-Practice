@@ -574,12 +574,31 @@ app.put("/form5", async (req, res) => {
 
 app.get("/form5-get", async (req, res) => {
   try {
-    const data = await form5.find();
+    const user = await form5.findOne({
+      email:req.body.email,
+      phone: req.body.phone,
+      EmegencyContact:req.body.EmegencyContact
+    });
+
+    if (user) {
+      const token = jwt.sign({ _id: user._id }, superKey);
+      return res.status(200).send({ message: "User found", token });
+    } else {
+      return res.status(404).send({ message: "User not found" });
+    }
 
     res.status(200).send({ message: "List of data", data: data });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
+});
+
+app.post("/form5-login", CheckToken, (req, res) => {
+  console.log("inside form", req.body);
+
+  res.status(200).json({
+    message: "I am  form5",
+  });
 });
 
 const schema4 = Joi.object({
@@ -624,8 +643,8 @@ app.get("/form4-get", async (req, res) => {
   try {
     const user = await form4.findOne({
       department: req.body.department,
-      
-driversLicenseNo:req.body.driversLicenseNo,
+
+      driversLicenseNo: req.body.driversLicenseNo,
       phone: req.body.phone,
     });
 
@@ -655,3 +674,15 @@ app.post("/form4-login", CheckToken, (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
+/*
+
+
+follow me for more updates Shahbaz Khan
+Please like, share, comment, and don't forget to repost if you find this valuable.
+
+#networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college
+#JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #CareerOpportunities #TechJobs #JobSearch #Connection
+
+*/
