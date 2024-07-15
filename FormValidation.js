@@ -144,7 +144,7 @@ function CheckToken(req, res, next) {
   }
 }
 
-app.put("/form1", async (req, res) => {
+app.post("/form1", async (req, res) => {
   try {
     const val = await schema1.validateAsync(req.body);
 
@@ -157,7 +157,56 @@ app.put("/form1", async (req, res) => {
   }
 });
 
+
+app.put("/form1-update", async (req, res) => {
+  const { email ,city} = req.body;
+  try {
+
+
+    
+    const filter = { email: email };
+      const update = { city: city };
+      const options = { new: true, upsert: false };
+
+    // console.log(user);
+    // const newStudent = new form1(val);
+    // await newStudent.save();
+
+    const updatedUser = await form1.findOneAndUpdate(filter, update, options);
+
+    res.status(200).send({ message: "Validation successful", data: updatedUser });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+app.delete("/form1-delete", async (req, res) => {
+  const { email } = req.body;
+  try {
+
+
+    
+    const check = { email: email };
+    //   const update = { city: city };
+    //   const options = { new: true, upsert: false };
+
+    // // console.log(user);
+    // // const newStudent = new form1(val);
+    // // await newStudent.save();
+
+    // const updatedUser = await form1.findOneAndUpdate(filter, update, options);
+
+    const deletedUser = await form1.findOneAndDelete(check);
+
+    res.status(200).send({ message: "Validation successful", data: deletedUser });
+    
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
 app.get("/form1-get", async (req, res) => {
+
   try {
     const user = await form1.findOne({
       email: req.body.email,
@@ -171,9 +220,8 @@ app.get("/form1-get", async (req, res) => {
       return res.status(404).send({ message: "User not found" });
     }
 
-    // console.log(user);
-    // const newStudent = new form1(val);
-    // await newStudent.save();
+
+
 
     res.status(200).send({ message: "Validation successful", Data: user });
   } catch (err) {
@@ -676,13 +724,9 @@ app.listen(port, () => {
 });
 
 
+
 /*
-
-
-follow me for more updates Shahbaz Khan
-Please like, share, comment, and don't forget to repost if you find this valuable.
 
 #networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college
 #JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #CareerOpportunities #TechJobs #JobSearch #Connection
-
 */
