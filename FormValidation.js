@@ -725,8 +725,116 @@ app.listen(port, () => {
 
 
 
+
+
+
+
+
 /*
+
+𝐃𝐚𝐲 𝟏𝟑/𝟑𝟎 🔥: Exciting Opportunities in Tech! 
+
+ZuAI is hiring for FullStack Developer- Freshers (2024)
+Experience: 0 - 2 year's
+Expected Salary: 4 - 6 LPA
+Apply here: https://lnkd.in/ezkwuhgv
+
+Interactive Brokers is hiring for Junior Software Engineer- Freshers (2024)
+Experience: 0 - 1 year's
+Expected Salary: 9 - 15 LPA
+Apply here:
+https://lnkd.in/eAkuw5pv
+
+Company: Microsoft
+Role: Software Engineering Intern
+Experience: 0+ Years
+Location: PAN India
+Apply Now: https://lnkd.in/g9xDpu4x
+
+Company: IBM
+Role: Frontend Engineer
+Experience: 0+ Years
+Location: Pune, IN
+Apply Now: https://lnkd.in/gx2UEjhP
+
+Company: Salesforce
+Role: Intern
+Experience: 0+ Years
+Location: Bangalore, Hyderabad - India
+Apply Now: https://lnkd.in/gNmbftWm
+
+Company: Visa
+Role: Software Engineer
+Experience: 1+ Years
+Location: Bangalore, India
+Apply Now: https://lnkd.in/grDEa2cY
+
+Company: NTT DATA
+Role: Trainee Engineer
+Experience: 0+ Years
+Location: Hyderabad, Telangana, India
+Apply Now: https://lnkd.in/g8k-ZABV
+
+Company: Brillio Europe (Formerly CloudStratex)
+Role: Full stack Developer
+Experience: 0+ Years
+Location: Hyderabad, Telangana, India
+Apply Now: https://lnkd.in/gmDgTnke
+
+Company: Kuku FM
+Role: Product Management Intern
+Experience: 0+ Years
+Location: Bengaluru, Karnataka, India
+Apply Now: https://lnkd.in/gFcK5pbd
+
+Company: Genpact
+Role: Management Trainee
+Experience: 0+ Years
+Location: India-Noida
+Apply Now: https://lnkd.in/gWSQyKEg
+
+Company: GlobalLogic
+Role: Associate Analyst
+Experience: 0+ Years
+Location:
+Apply Now: https://lnkd.in/gzxcm3j9
+
+Company: DigiCert
+Role: Software Engineer
+Experience: 2+ Years
+Location: Bangalore, India
+Apply Now: https://lnkd.in/gWcJSutc
+
+Company: Emmes
+Role: Software Development Engineer
+Experience: 2+ Years
+Location: India - Bengaluru
+Apply Now: https://lnkd.in/gzt3qvti
+
+Company: Körber
+Role: Software Engineer
+Experience: 2+ Years
+Location: Remote India
+Apply Now: https://lnkd.in/g4KCgNT6
+
+Company: NCR Atleos
+Role: SW Engineer I
+Experience: 1+ Years
+Location: GURGAON, IND
+Apply Now: https://lnkd.in/g58kF4ff
+
+Company: Birdeye
+Role: Software Backend
+Experience: 2+ Years
+Location: Gurugram, Haryana, India
+Apply Now: https://lnkd.in/gGEyXDPi
+
+follow me for more updates Shahbaz Khan
+Please like, share, comment, and don't forget to repost if you find this valuable.
 
 #networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college
 #JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #CareerOpportunities #TechJobs #JobSearch #Connection
+
+
+
 */
