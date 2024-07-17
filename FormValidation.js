@@ -90,152 +90,154 @@ app.get("/update-get", async (req, res) => {
   }
 });
 
-const schema1 = Joi.object({
-  firstName: Joi.string().min(2).max(30).required(),
-  lastName: Joi.string().min(2).max(30).required(),
-  class: Joi.string()
-    .pattern(/^Class \d{4}-\d{4}$/)
-    .required()
-    .messages({
-      "string.pattern.base":
-        'Class must be in the format "Class YYYY-YYYY", e.g., "Class 2015-2016"',
-      "any.required": "Class is required",
-    }),
-  dob: Joi.date().less("now").iso().required(), // Student date of birth
-  parentFirstName: Joi.string().min(2).max(30).required(),
-  parentLastName: Joi.string().min(2).max(30).required(),
-  currentAddress: Joi.string().min(5).max(100).required(),
-  streetAddress1: Joi.string().min(5).max(100).required(),
-  streetAddress2: Joi.string().min(5).max(100).optional(),
-  city: Joi.string().min(2).max(50).required(),
-  region: Joi.string().min(2).max(50).required(),
-  zipcode: Joi.string()
-    .pattern(/^[0-9]{5,10}$/)
-    .required(),
-  country: Joi.string().min(2).max(50).required(),
-  phone: Joi.string()
-    .pattern(/^[0-9]{10,15}$/)
-    .required(),
-  email: Joi.string().email().min(6).max(30).required(),
-});
+// const schema1 = Joi.object({
+//   firstName: Joi.string().min(2).max(30).required(),
+//   lastName: Joi.string().min(2).max(30).required(),
+//   class: Joi.string()
+//     .pattern(/^Class \d{4}-\d{4}$/)
+//     .required()
+//     .messages({
+//       "string.pattern.base":
+//         'Class must be in the format "Class YYYY-YYYY", e.g., "Class 2015-2016"',
+//       "any.required": "Class is required",
+//     }),
+//   dob: Joi.date().less("now").iso().required(), // Student date of birth
+//   parentFirstName: Joi.string().min(2).max(30).required(),
+//   parentLastName: Joi.string().min(2).max(30).required(),
+//   currentAddress: Joi.string().min(5).max(100).required(),
+//   streetAddress1: Joi.string().min(5).max(100).required(),
+//   streetAddress2: Joi.string().min(5).max(100).optional(),
+//   city: Joi.string().min(2).max(50).required(),
+//   region: Joi.string().min(2).max(50).required(),
+//   zipcode: Joi.string()
+//     .pattern(/^[0-9]{5,10}$/)
+//     .required(),
+//   country: Joi.string().min(2).max(50).required(),
+//   phone: Joi.string()
+//     .pattern(/^[0-9]{10,15}$/)
+//     .required(),
+//   email: Joi.string().email().min(6).max(30).required(),
+// });
 
-function CheckToken(req, res, next) {
-  console.log(req, "req");
+// function CheckToken(req, res, next) {
+//   console.log(req, "req");
 
-  console.log("header", req.headers);
+//   console.log("header", req.headers);
 
-  console.log("autherization", req.headers["authorization"]?.split(" ")[1]);
+//   console.log("autherization", req.headers["authorization"]?.split(" ")[1]);
 
-  const token = req.headers["authorization"]?.split(" ")[1];
-  if (token) {
-    jwt.verify(token, superKey, (err, decoded) => {
-      if (err) {
-        res.status(400).json({
-          message: "not autherized",
-        });
-      } else {
-        next();
-      }
-    });
-  } else {
-    res.status(400).json({
-      message: "not autherized",
-    });
-  }
-}
+//   const token = req.headers["authorization"]?.split(" ")[1];
+//   if (token) {
+//     jwt.verify(token, superKey, (err, decoded) => {
+//       if (err) {
+//         res.status(400).json({
+//           message: "not autherized",
+//         });
+//       } else {
+//         next();
+//       }
+//     });
+//   } else {
+//     res.status(400).json({
+//       message: "not autherized",
+//     });
+//   }
+// }
 
-app.post("/form1", async (req, res) => {
-  try {
-    const val = await schema1.validateAsync(req.body);
+// app.post("/form1", async (req, res) => {
+//   try {
+//     const val = await schema1.validateAsync(req.body);
 
-    const newStudent = new form1(val);
-    await newStudent.save();
+//     const newStudent = new form1(val);
+//     await newStudent.save();
 
-    res.status(200).send({ message: "Validation successful", data: val });
-  } catch (err) {
-    res.status(400).send({ message: err.message });
-  }
-});
-
-
-app.put("/form1-update", async (req, res) => {
-  const { email ,city} = req.body;
-  try {
+//     res.status(200).send({ message: "Validation successful", data: val });
+//   } catch (err) {
+//     res.status(400).send({ message: err.message });
+//   }
+// });
 
 
-    
-    const filter = { email: email };
-      const update = { city: city };
-      const options = { new: true, upsert: false };
-
-    // console.log(user);
-    // const newStudent = new form1(val);
-    // await newStudent.save();
-
-    const updatedUser = await form1.findOneAndUpdate(filter, update, options);
-
-    res.status(200).send({ message: "Validation successful", data: updatedUser });
-  } catch (err) {
-    res.status(400).send({ message: err.message });
-  }
-});
-
-app.delete("/form1-delete", async (req, res) => {
-  const { email } = req.body;
-  try {
+// app.put("/form1-update", async (req, res) => {
+//   const { email ,city} = req.body;
+//   try {
 
 
     
-    const check = { email: email };
-    //   const update = { city: city };
-    //   const options = { new: true, upsert: false };
+//     const filter = { email: email };
+//       const update = { city: city };
+//       const options = { new: true, upsert: false };
 
-    // // console.log(user);
-    // // const newStudent = new form1(val);
-    // // await newStudent.save();
+//     // console.log(user);
+//     // const newStudent = new form1(val);
+//     // await newStudent.save();
 
-    // const updatedUser = await form1.findOneAndUpdate(filter, update, options);
+//     const updatedUser = await form1.findOneAndUpdate(filter, update, options);
 
-    const deletedUser = await form1.findOneAndDelete(check);
+//     res.status(200).send({ message: "Validation successful", data: updatedUser });
+//   } catch (err) {
+//     res.status(400).send({ message: err.message });
+//   }
+// });
 
-    res.status(200).send({ message: "Validation successful", data: deletedUser });
+// app.delete("/form1-delete", async (req, res) => {
+//   const { email } = req.body;
+//   try {
+
+
     
-  } catch (err) {
-    res.status(400).send({ message: err.message });
-  }
-});
+//     const check = { email: email };
+//     //   const update = { city: city };
+//     //   const options = { new: true, upsert: false };
 
-app.get("/form1-get", async (req, res) => {
+//     // // console.log(user);
+//     // // const newStudent = new form1(val);
+//     // // await newStudent.save();
 
-  try {
-    const user = await form1.findOne({
-      email: req.body.email,
-      dob: req.body.dob,
-    });
+//     // const updatedUser = await form1.findOneAndUpdate(filter, update, options);
 
-    if (user) {
-      const token = jwt.sign({ _id: user._id }, superKey);
-      return res.status(200).send({ message: "User found", token });
-    } else {
-      return res.status(404).send({ message: "User not found" });
-    }
+//     const deletedUser = await form1.findOneAndDelete(check);
+
+//     res.status(200).send({ message: "Validation successful", data: deletedUser });
+    
+//   } catch (err) {
+//     res.status(400).send({ message: err.message });
+//   }
+// });
+
+// app.get("/form1-get", async (req, res) => {
+
+//   try {
+//     const user = await form1.findOne({
+//       email: req.body.email,
+//       dob: req.body.dob,
+//     });
+
+//     if (user) {
+//       const token = jwt.sign({ _id: user._id }, superKey);
+//       return res.status(200).send({ message: "User found", token });
+//     } else {
+//       return res.status(404).send({ message: "User not found" });
+//     }
 
 
 
 
-    res.status(200).send({ message: "Validation successful", Data: user });
-  } catch (err) {
-    res.status(400).send({ message: err.message });
-  }
-});
+//     res.status(200).send({ message: "Validation successful", Data: user });
+//   } catch (err) {
+//     res.status(400).send({ message: err.message });
+//   }
+// });
 
-app.post("/form1-login", CheckToken, (req, res) => {
-  console.log("inside form", req.body);
+// app.post("/form1-login", CheckToken, (req, res) => {
+//   console.log("inside form", req.body);
 
-  res.status(200).json({
-    message: "I am  form1",
-  });
-});
+//   res.status(200).json({
+//     message: "I am  form1",
+//   });
+// });
+
+
 
 const schema2 = Joi.object({
   firstName: Joi.string().min(3).max(16).required(),
@@ -285,6 +287,8 @@ app.put("/form2", async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
+
+
 
 app.get("/form2-get", async (req, res) => {
   // const { email, companyName } = req.body;
@@ -391,6 +395,9 @@ app.post("/form2-login", CheckToken, (req, res) => {
     message: "I am  form2",
   });
 });
+
+
+
 
 const schema3 = Joi.object({
   Account: Joi.string()
@@ -535,6 +542,10 @@ app.post("/form3-login", CheckToken, (req, res) => {
     message: "I am  form3",
   });
 });
+
+
+
+
 
 const schema5 = Joi.object({
   firstName: Joi.string().min(3).max(16).required(),

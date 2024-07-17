@@ -32,7 +32,7 @@ const form1Schema = new mongoose.Schema({
   },
   streetAddress1: {
     type: String,
-    required: true,
+   
   },
   streetAddress2: {
     type: String,

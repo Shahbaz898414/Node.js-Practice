@@ -34,8 +34,6 @@ connectDB();
 
 const superKey = "shahbaz123$51ert";
 
-
-
 const schema1 = Joi.object({
   firstName: Joi.string().min(2).max(30).required(),
   lastName: Joi.string().min(2).max(30).required(),
@@ -91,8 +89,17 @@ function CheckToken(req, res, next) {
 }
 
 app.post("/form1", async (req, res) => {
+  const {email}=req.body;
   try {
     const val = await schema1.validateAsync(req.body);
+
+
+    const user= await form1.findOne({email});
+
+
+    if(user){
+      return res.status(200).send("All ready exist")
+    }
 
     const newStudent = new form1(val);
     await newStudent.save();
@@ -103,16 +110,12 @@ app.post("/form1", async (req, res) => {
   }
 });
 
-
 app.put("/form1-update", async (req, res) => {
-  const { email ,city} = req.body;
+  const { email, city } = req.body;
   try {
-
-
-    
     const filter = { email: email };
-      const update = { city: city };
-      const options = { new: true, upsert: false };
+    const update = { city: city };
+    const options = { new: true, upsert: false };
 
     // console.log(user);
     // const newStudent = new form1(val);
@@ -120,20 +123,17 @@ app.put("/form1-update", async (req, res) => {
 
     const updatedUser = await form1.findOneAndUpdate(filter, update, options);
 
-    res.status(200).send({ message: "Validation successful", data: updatedUser });
+    res
+      .status(200)
+      .send({ message: "Validation successful", data: updatedUser });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
 
-
-
 app.delete("/form1-delete", async (req, res) => {
   const { email } = req.body;
   try {
-
-
-    
     const check = { email: email };
     //   const update = { city: city };
     //   const options = { new: true, upsert: false };
@@ -146,15 +146,15 @@ app.delete("/form1-delete", async (req, res) => {
 
     const deletedUser = await form1.findOneAndDelete(check);
 
-    res.status(200).send({ message: "Validation successful", data: deletedUser });
-    
+    res
+      .status(200)
+      .send({ message: "Validation successful", data: deletedUser });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
 
 app.get("/form1-get", async (req, res) => {
-
   try {
     const user = await form1.findOne({
       email: req.body.email,
@@ -168,14 +168,173 @@ app.get("/form1-get", async (req, res) => {
       return res.status(404).send({ message: "User not found" });
     }
 
-
-
-
     res.status(200).send({ message: "Validation successful", Data: user });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
+
+app.get("/form1-findall", async (req, res) => {
+  try {
+    const documents = await form1.find();
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+app.get("/form1-findone", async (req, res) => {
+  // const {email}=req.body;
+  try {
+    const document = await form1.findOne({
+      email: req.body.email,
+    });
+
+    // console.log(document)
+    res.status(200).json(document);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+app.get("/form1/:id", async (req, res) => {
+  try {
+    const document = await form1.findById(req.params.id);
+    res.status(200).json(document);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+// Update many documents
+app.put("/form1-update-many", async (req, res) => {
+  try {
+    const {city,country}=req.body;
+
+    if (!city || !country) {
+      return res.status(400).json({ message: "City and country are required" });
+    }
+
+
+    const filter={city};
+
+
+    const update={$set:{country}};
+
+
+    const updatedDocuments = await form1.updateMany(filter, update);
+
+
+    const user = await form1.find({ city });
+
+
+    res.status(200).json({
+      CountData: updatedDocuments.modifiedCount,  // Use modifiedCount to get the count of updated documents
+      DataUser: user,
+    });
+
+
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+
+app.put("/form1-find-by-id-and-update", async (req, res) => {
+  try {
+    const { _id, country } = req.body;
+    if (!_id) 
+      return res.status(400).json({ message: "ID is required" });
+
+    const updatedDocument = await form1.findByIdAndUpdate(
+      _id,
+      { $set: { country } },
+      { new: true }  
+    );
+
+    if (!updatedDocument) {
+      return res.status(404).json({ message: "Document not found" });
+    }
+
+    res.status(200).json(updatedDocument);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+
+app.put('/form1-update-one', async (req, res) => {
+  const {country, city}=req.body;
+  try {
+   
+    const filter={country};
+    const update={city};
+
+    // const user=await form1.findOne({
+    //   country:req.body.country, city:req.body.city
+    // })
+
+    const updatedDocument = await form1.updateOne(filter,update);
+
+    
+    res.status(200).json(updatedDocument);
+    
+  } catch (err){
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.delete('/form1-delete-many', async (req, res) => {
+
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const deletedDocuments = await form1.deleteMany({ email });
+
+    if (deletedDocuments.deletedCount === 0) {
+      return res.status(404).json({ message: "No documents found to delete" });
+    }
+
+    res.status(200).json(deletedDocuments);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get('/form1-count-documents', async (req, res) => {
+  try {
+
+    const {country}=req.body
+
+    const count = await form1.countDocuments({country});
+    res.status(200).json({ count });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+app.put('/form1-find-by-id-and-update/:id', async (req, res) => {
+  try {
+    const updatedDocument = await form1.findByIdAndUpdate(req.params.id, req.body.update, { new: true });
+    res.status(200).json(updatedDocument);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 
 app.post("/form1-login", CheckToken, (req, res) => {
   console.log("inside form", req.body);
@@ -185,4 +344,6 @@ app.post("/form1-login", CheckToken, (req, res) => {
   });
 });
 
-
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
