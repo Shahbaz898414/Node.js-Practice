@@ -214,10 +214,139 @@ app.get("/form3-get", async (req, res) => {
   }
 });
 
+
+app.put("/form3-findOneAndUpdate", async (req, res) => {
+  const { email, Industry } = req.body;
+  try {
+   const filter = {  email };
+      const update = { Industry};
+
+
+    // console.log(user);
+    // const newStudent = new form1(val);
+    // await newStudent.save();
+
+    const updatedUser = await form3.findOneAndUpdate(filter, update);
+
+    res
+      .status(200)
+      .send({ message: "Validation successful", data: updatedUser });
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+
+app.delete("/form3-findOneAndDelete", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const check = {  email };
+    //   const update = { city: city };
+    //   const options = { new: true, upsert: false };
+
+    // // console.log(user);
+    // // const newStudent = new form1(val);
+    // // await newStudent.save();
+
+    // const updatedUser = await form1.findOneAndUpdate(filter, update, options);
+
+    const deletedUser = await form3.findOneAndDelete(check);
+
+    res.status(200).send({ message: "Validation successful", data: deletedUser });
+
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+
+app.get("/form3-findall", async (req, res) => {
+  try {
+    const documents = await form3.find();
+    res.status(200).json({
+      val:documents});
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+app.get("/form3-findone", async (req, res) => {
+  // const {email}=req.body;
+  try {
+    const document = await form3.findOne({
+      email: req.body.email,
+    });
+
+    // console.log(document)
+    res.status(200).json(document);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get("/form3/:id", async (req, res) => {
+  try {
+    const document = await form3.findById(req.params.id);
+    res.status(200).json(document);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.put("/form3-update-many", async (req, res) => {
+
+  const {Industry,Title_of_acccount}=req.body
+  try {
+
+    const filter = { Industry };
+      const update = { Title_of_acccount };
+    const updatedDocuments = await form3.updateMany(filter,update);
+
+    const user = await form3.find(filter);
+    res.status(200).json({
+      CountData: updatedDocuments,
+      DataUser: user,
+    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.put("/form3-find-by-id-and-update", async (req, res) => {
+  const {_id,Industry}=req.body
+  try {
+    const filter = { _id };
+    const update = { Industry };
+    const updatedDocuments = await form3.findByIdAndUpdate(filter,update);
+
+    const user = await form3.find(filter);
+    res.status(200).json({
+      CountData: updatedDocuments,
+      DataUser: user,
+    });
+
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
 app.post("/form3-login", CheckToken, (req, res) => {
   console.log("inside form", req.body);
 
   res.status(200).json({
     message: "I am  form3",
   });
+});
+
+
+
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
