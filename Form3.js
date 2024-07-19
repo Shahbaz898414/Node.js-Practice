@@ -317,9 +317,11 @@ app.put("/form3-update-many", async (req, res) => {
 });
 
 
+
 app.put("/form3-find-by-id-and-update", async (req, res) => {
   const {_id,Industry}=req.body
   try {
+
     const filter = { _id };
     const update = { Industry };
     const updatedDocuments = await form3.findByIdAndUpdate(filter,update);
@@ -336,6 +338,71 @@ app.put("/form3-find-by-id-and-update", async (req, res) => {
 });
 
 
+
+app.put('/form3-update-one', async (req, res) => {
+  const { email, Industry } = req.body;
+  try {
+    const filter={email};
+
+    
+    const update={Industry};
+
+
+    const updatedDocument = await form3.updateOne(filter,{ $set: update });
+
+
+    const user = await form3.findOne({ email});
+
+
+    res.status(200).json({ updatedCount: updatedDocument.nModified, data: user });
+
+
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+
+});
+
+
+app.get('/form3-count-documents', async (req, res) => {
+  try {
+
+    const {Industry}=req.body
+
+    const count = await form3.countDocuments({Industry});
+    res.status(200).json({ count });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+app.delete('/form3-delete-many', async (req, res) => {
+
+  try {
+    const { Industry } = req.body;
+
+    // if (!) {
+    //   return res.status(400).json({ message: "Email is required" });
+    // }
+
+    const deletedDocuments = await form3.deleteMany({ Industry });
+
+    if (deletedDocuments.deletedCount === 0) {
+      return res.status(404).json({ message: "No documents found to delete" });
+    }
+
+    res.status(200).json(deletedDocuments);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+
+
 app.post("/form3-login", CheckToken, (req, res) => {
   console.log("inside form", req.body);
 
@@ -350,3 +417,5 @@ app.post("/form3-login", CheckToken, (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+

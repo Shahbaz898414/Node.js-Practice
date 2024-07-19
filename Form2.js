@@ -398,6 +398,42 @@ app.put('/form2-update-one', async (req, res) => {
 });
 
 
+app.get('/form2-count-documents', async (req, res) => {
+  try {
+
+    const {companyName}=req.body
+
+    const count = await form2.countDocuments({companyName});
+    res.status(200).json({ count });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+app.delete('/form2-delete-many', async (req, res) => {
+
+  try {
+    const { companyName } = req.body;
+
+    // if (!email) {
+    //   return res.status(400).json({ message: "Email is required" });
+    // }
+
+    const deletedDocuments = await form2.deleteMany({ companyName });
+
+    if (deletedDocuments.deletedCount === 0) {
+      return res.status(404).json({ message: "No documents found to delete" });
+    }
+
+    res.status(200).json(deletedDocuments);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
 
 
 app.post("/form2-login", CheckToken, (req, res) => {
