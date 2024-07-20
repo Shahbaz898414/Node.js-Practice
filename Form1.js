@@ -283,8 +283,13 @@ app.put('/form1-update-one', async (req, res) => {
 
     const updatedDocument = await form1.updateOne(filter,update);
 
+    const user=await form1.findOne(filter);
+
     
-    res.status(200).json(updatedDocument);
+    res.status(200).json({
+      data:updatedDocument,
+        user:user
+    });
     
   } catch (err){
     res.status(400).json({ message: err.message });
@@ -347,3 +352,14 @@ app.post("/form1-login", CheckToken, (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
+/*
+
+follow me for more updates Shahbaz Khan
+Please like, share, comment, and don't forget to repost if you find this valuable.
+
+#networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college
+#JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #CareerOpportunities #TechJobs #JobSearch #Connection
+
+*/
