@@ -354,12 +354,3 @@ app.listen(port, () => {
 });
 
 
-/*
-
-follow me for more updates Shahbaz Khan
-Please like, share, comment, and don't forget to repost if you find this valuable.
-
-#networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college
-#JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #CareerOpportunities #TechJobs #JobSearch #Connection
-
-*/
