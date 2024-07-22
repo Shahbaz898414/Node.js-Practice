@@ -354,3 +354,138 @@ app.listen(port, () => {
 });
 
 
+/*
+
+𝐃𝐚𝐲 𝟏𝟗/𝟑𝟎 🔥: Exciting Opportunities in Tech! 
+
+Company : Fampay 
+Role : Android Engineering Intern
+Batch : 2025 & 2026 passouts
+Apply : https://lnkd.in/dMxdzv3i
+
+Company : Walmart
+Program : Walmart Sparkathon Software Engineer
+Batch : 2025 & 2026 passouts 
+CTC : 23 LPA
+Apply : https://lnkd.in/dApXy2Db
+
+Company : Nutanix
+Role : Member of Technical Staff 
+Batch : 2022 / 2023 / 2024 
+Apply : https://lnkd.in/dgWnEtiK
+
+Company : Adobe
+Role : SDE 1
+Batch : 2022 / 2023 / 2024
+CTC : Freshers - 45.5 Lakhs INR
+Apply : https://lnkd.in/ddfJwSqC
+
+
+Company: Google
+Role: Software Engineer, Payments
+Experience: 1+ Years
+Location: Hyderabad, Telangana - India, Bangalore, Karnataka - India
+Apply Now: https://lnkd.in/g4iuyJ55
+
+Company: Zebra Technologies
+Role: Software Engineer I
+Experience: 0+ Years
+Location: Bangalore, Karnataka, India
+Apply Now: https://lnkd.in/gZjtBM_y
+
+Company: Siemens
+Role: Graduate Trainee Engineer
+Experience: 0+ Years
+Location: Bangalore, Karnataka, India
+Apply Now: https://lnkd.in/gkW9-JgJ
+
+Company: HP
+Role: Software Applications Engineer
+Experience: 0+ Years
+Location: Pune, Maharastra - India, Bangalore, Karnataka - India
+Apply Now: https://lnkd.in/g2jfemCa
+
+Company: Deloitte
+Role: Data Security Quality Assurance - Analyst
+Experience: 0+ Years
+Location: Pune/Hyderabad
+Apply Now: https://lnkd.in/gGK_pCmv
+
+Company: TCS
+Role: Digital/Ninja
+Experience: 0+ Years
+Location: PAN India
+Apply Now: https://lnkd.in/giYC9NcE
+
+Company: dunnhumby
+Role: ML Engineer
+Experience: 0+ Years
+Location: Gurgaon, Haryana, India
+Apply Now: https://lnkd.in/gKvtUN6Z
+
+Company: CRISIL Limited
+Role: Data Analyst
+Experience: 1+ Years
+Location: Mumbai / Pune / Gurugram
+Apply Now: https://lnkd.in/gTUxUDiC
+
+Company: Sophos
+Role: Intern - Software Engineer (C/Python)
+Experience: 0+ Years
+Location: Ahmedabad, India
+Apply Now: https://lnkd.in/grcCC2Tk
+
+Company: CashKaro.com
+Role: SDE 1
+Experience: 1+ Years
+Location: Gurugram,Haryana, India
+Apply Now: https://lnkd.in/g_vBhwxN
+
+Company: Deutsche Bank
+Role: Analytics - Data Analyst
+Experience: 0+ Years
+Location: Bangalore, Karnataka, India
+Apply Now: https://lnkd.in/g4b26Ppa
+
+Company: PayPal
+Role: Software Engineer
+Experience: 2+ Years
+Location: Hyderabad, Telangana - India, Bangalore, Karnataka - India
+Apply Now: https://lnkd.in/gdWb_Xr8
+
+
+Company : Flipkart
+Program : Flipkart Grid
+Batch : 2025, 2026, 2027 & 2028 passouts
+Stipend: INR 1 Lacs / month 
+CTC : INR 32 LPA 
+Apply : https://lnkd.in/dfQR72aJ
+
+Company : Goldman Sachs
+Program : 2025 New Analyst Program
+Batch : 2025
+Expected CTC: INR 24 Lacs
+Apply : https://lnkd.in/dGtCJf4S
+
+Company : Goldman Sachs
+Program : 2025 Summer Analyst Program
+Batch : 2026
+Expected Stipend: INR 1 Lakh per month 
+Apply : https://lnkd.in/dBJ4gJzD
+
+
+Company : Enterpret
+Role : SDE Intern - Backend Engineering
+Batch : 2024 & 2025 passouts
+Expected Stipend: INR 1 Lakh per month
+Apply : https://lnkd.in/dBT3DQmr
+
+Follow me for more updates Shahbaz Khan
+Please like, share, comment, and don't forget to repost if you find this valuable.
+
+#networking #Hiring #TechJobs #SoftwareEngineer #linkedin #college
+#JobOpportunities #CareerGrowth #jobs #contentcreator #community #college #connection #JobAlert #HiringNow #SoftwareEngineer #CareerOpportunities #TechJobs #JobSearch #Connection
+
+
+
+*/
