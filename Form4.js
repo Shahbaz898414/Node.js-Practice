@@ -132,7 +132,7 @@ app.get("/form4-get", async (req, res) => {
 
 
 
-app.put("/form4-findOneAndUpdate", async (req, res) => {
+app.put("/form4-findOneAndUpdate",CheckToken, async (req, res) => {
   const { phone, lastName } = req.body;
   try {
    const filter = {  phone };
@@ -152,7 +152,7 @@ app.put("/form4-findOneAndUpdate", async (req, res) => {
 });
 
 
-app.delete("/form4-findOneAndDelete", async (req, res) => {
+app.delete("/form4-findOneAndDelete",CheckToken, async (req, res) => {
   const { phone } = req.body;
   try {
     const check = {  phone };
@@ -175,7 +175,7 @@ app.delete("/form4-findOneAndDelete", async (req, res) => {
 });
 
 
-app.get("/form4-findall", async (req, res) => {
+app.get("/form4-findall",CheckToken, async (req, res) => {
   try {
     const documents = await form4.find();
     res.status(200).json({
@@ -186,7 +186,7 @@ app.get("/form4-findall", async (req, res) => {
 });
 
 
-app.get("/form4-findone", async (req, res) => {
+app.get("/form4-findone",CheckToken, async (req, res) => {
   // const {email}=req.body;
   try {
     const document = await form4.findOne({
@@ -201,7 +201,7 @@ app.get("/form4-findone", async (req, res) => {
 });
 
 
-app.get("/form4/:id", async (req, res) => {
+app.get("/form4/:id",CheckToken, async (req, res) => {
   try {
     const document = await form4.findById(req.params.id);
     res.status(200).json(document);
@@ -211,7 +211,7 @@ app.get("/form4/:id", async (req, res) => {
 });
 
 
-app.put("/form4-update-many", async (req, res) => {
+app.put("/form4-update-many",CheckToken, async (req, res) => {
 
   const {phone,department}=req.body
   try {
@@ -231,7 +231,7 @@ app.put("/form4-update-many", async (req, res) => {
 });
 
 
-app.put("/form4-find-by-id-and-update", async (req, res) => {
+app.put("/form4-find-by-id-and-update",CheckToken, async (req, res) => {
   const {_id,department}=req.body
   try {
 
@@ -251,7 +251,7 @@ app.put("/form4-find-by-id-and-update", async (req, res) => {
 });
 
 
-app.put('/form4-update-one', async (req, res) => {
+app.put('/form4-update-one',CheckToken, async (req, res) => {
   const { phone, department } = req.body;
   try {
     const filter={phone};
@@ -276,7 +276,7 @@ app.put('/form4-update-one', async (req, res) => {
 });
 
 
-app.get('/form4-count-documents', async (req, res) => {
+app.get('/form4-count-documents',CheckToken, async (req, res) => {
   try {
 
     const {phone}=req.body
@@ -289,7 +289,7 @@ app.get('/form4-count-documents', async (req, res) => {
 });
 
 
-app.delete('/form4-delete-many', async (req, res) => {
+app.delete('/form4-delete-many',CheckToken, async (req, res) => {
 
   try {
     const { phone } = req.body;

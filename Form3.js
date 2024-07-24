@@ -215,7 +215,7 @@ app.get("/form3-get", async (req, res) => {
 });
 
 
-app.put("/form3-findOneAndUpdate", async (req, res) => {
+app.put("/form3-findOneAndUpdate",CheckToken, async (req, res) => {
   const { email, Industry } = req.body;
   try {
    const filter = {  email };
@@ -237,7 +237,7 @@ app.put("/form3-findOneAndUpdate", async (req, res) => {
 });
 
 
-app.delete("/form3-findOneAndDelete", async (req, res) => {
+app.delete("/form3-findOneAndDelete",CheckToken, async (req, res) => {
   const { email } = req.body;
   try {
     const check = {  email };
@@ -260,7 +260,7 @@ app.delete("/form3-findOneAndDelete", async (req, res) => {
 });
 
 
-app.get("/form3-findall", async (req, res) => {
+app.get("/form3-findall",CheckToken, async (req, res) => {
   try {
     const documents = await form3.find();
     res.status(200).json({
@@ -272,7 +272,7 @@ app.get("/form3-findall", async (req, res) => {
 
 
 
-app.get("/form3-findone", async (req, res) => {
+app.get("/form3-findone",CheckToken, async (req, res) => {
   // const {email}=req.body;
   try {
     const document = await form3.findOne({
@@ -287,7 +287,7 @@ app.get("/form3-findone", async (req, res) => {
 });
 
 
-app.get("/form3/:id", async (req, res) => {
+app.get("/form3/:id",CheckToken, async (req, res) => {
   try {
     const document = await form3.findById(req.params.id);
     res.status(200).json(document);
@@ -297,7 +297,7 @@ app.get("/form3/:id", async (req, res) => {
 });
 
 
-app.put("/form3-update-many", async (req, res) => {
+app.put("/form3-update-many",CheckToken, async (req, res) => {
 
   const {Industry,Title_of_acccount}=req.body
   try {
@@ -318,7 +318,7 @@ app.put("/form3-update-many", async (req, res) => {
 
 
 
-app.put("/form3-find-by-id-and-update", async (req, res) => {
+app.put("/form3-find-by-id-and-update",CheckToken, async (req, res) => {
   const {_id,Industry}=req.body
   try {
 
@@ -339,7 +339,7 @@ app.put("/form3-find-by-id-and-update", async (req, res) => {
 
 
 
-app.put('/form3-update-one', async (req, res) => {
+app.put('/form3-update-one',CheckToken, async (req, res) => {
   const { email, Industry } = req.body;
   try {
     const filter={email};
@@ -364,7 +364,7 @@ app.put('/form3-update-one', async (req, res) => {
 });
 
 
-app.get('/form3-count-documents', async (req, res) => {
+app.get('/form3-count-documents',CheckToken, async (req, res) => {
   try {
 
     const {Industry}=req.body
@@ -378,7 +378,7 @@ app.get('/form3-count-documents', async (req, res) => {
 
 
 
-app.delete('/form3-delete-many', async (req, res) => {
+app.delete('/form3-delete-many',CheckToken, async (req, res) => {
 
   try {
     const { Industry } = req.body;
@@ -403,7 +403,7 @@ app.delete('/form3-delete-many', async (req, res) => {
 
 
 
-app.post("/form3-login", CheckToken, (req, res) => {
+app.post("/form3-login",CheckToken, CheckToken, (req, res) => {
   console.log("inside form", req.body);
 
   res.status(200).json({

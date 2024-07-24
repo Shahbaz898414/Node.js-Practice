@@ -223,7 +223,7 @@ app.get("/form2-get", async (req, res) => {
 });
 
 
-app.get("/form2-lgtreft", async (req, res) => {
+app.get("/form2-lgtreft", CheckToken,async (req, res) => {
   try {
     const users = await form2.find({ teamSize: { $lte: 6 } });
 
@@ -237,7 +237,7 @@ app.get("/form2-lgtreft", async (req, res) => {
 
 
 
-app.put("/form2-findOneAndUpdate", async (req, res) => {
+app.put("/form2-findOneAndUpdate", CheckToken,async (req, res) => {
   const { email, companyName } = req.body;
   try {
    const filter = { email: email };
@@ -259,7 +259,7 @@ app.put("/form2-findOneAndUpdate", async (req, res) => {
 });
 
 
-app.delete("/form2-findOneAndDelete", async (req, res) => {
+app.delete("/form2-findOneAndDelete",CheckToken, async (req, res) => {
   const { email } = req.body;
   try {
     const check = { email: email };
@@ -282,7 +282,7 @@ app.delete("/form2-findOneAndDelete", async (req, res) => {
 });
 
 
-app.get("/form2-findall", async (req, res) => {
+app.get("/form2-findall",CheckToken, async (req, res) => {
   try {
     const documents = await form2.find();
     res.status(200).json(documents);
@@ -292,7 +292,7 @@ app.get("/form2-findall", async (req, res) => {
 });
 
 
-app.get("/form2-findone", async (req, res) => {
+app.get("/form2-findone",CheckToken, async (req, res) => {
   // const {email}=req.body;
   try {
     const document = await form2.findOne({
@@ -307,7 +307,7 @@ app.get("/form2-findone", async (req, res) => {
 });
 
 
-app.get("/form2/:id", async (req, res) => {
+app.get("/form2/:id",CheckToken, async (req, res) => {
   try {
     const document = await form2.findById(req.params.id);
     res.status(200).json(document);
@@ -319,7 +319,7 @@ app.get("/form2/:id", async (req, res) => {
 
 
 
-app.put("/form2-update-many", async (req, res) => {
+app.put("/form2-update-many",CheckToken, async (req, res) => {
   try {
 
     // const filter = { email: email };
@@ -343,7 +343,7 @@ app.put("/form2-update-many", async (req, res) => {
 
 
 
-app.put("/form2-find-by-id-and-update", async (req, res) => {
+app.put("/form2-find-by-id-and-update", CheckToken,async (req, res) => {
   try {
     const { _id, companyName } = req.body;
 
@@ -370,7 +370,7 @@ app.put("/form2-find-by-id-and-update", async (req, res) => {
 
 
 
-app.put('/form2-update-one', async (req, res) => {
+app.put('/form2-update-one',CheckToken, async (req, res) => {
 
   const { email, companyName } = req.body;
   try {
@@ -398,7 +398,7 @@ app.put('/form2-update-one', async (req, res) => {
 });
 
 
-app.get('/form2-count-documents', async (req, res) => {
+app.get('/form2-count-documents',CheckToken, async (req, res) => {
   try {
 
     const {companyName}=req.body
@@ -412,7 +412,7 @@ app.get('/form2-count-documents', async (req, res) => {
 
 
 
-app.delete('/form2-delete-many', async (req, res) => {
+app.delete('/form2-delete-many',CheckToken, async (req, res) => {
 
   try {
     const { companyName } = req.body;

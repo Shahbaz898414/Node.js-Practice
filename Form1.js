@@ -63,6 +63,8 @@ const schema1 = Joi.object({
   email: Joi.string().email().min(6).max(30).required(),
 });
 
+
+
 function CheckToken(req, res, next) {
   console.log(req, "req");
 
@@ -110,7 +112,7 @@ app.post("/form1", async (req, res) => {
   }
 });
 
-app.put("/form1-update", async (req, res) => {
+app.put("/form1-update", CheckToken,async (req, res) => {
   const { email, city } = req.body;
   try {
     const filter = { email: email };
@@ -131,7 +133,9 @@ app.put("/form1-update", async (req, res) => {
   }
 });
 
-app.delete("/form1-delete", async (req, res) => {
+
+
+app.delete("/form1-delete", CheckToken,async (req, res) => {
   const { email } = req.body;
   try {
     const check = { email: email };
@@ -154,6 +158,8 @@ app.delete("/form1-delete", async (req, res) => {
   }
 });
 
+
+
 app.get("/form1-get", async (req, res) => {
   try {
     const user = await form1.findOne({
@@ -174,7 +180,7 @@ app.get("/form1-get", async (req, res) => {
   }
 });
 
-app.get("/form1-findall", async (req, res) => {
+app.get("/form1-findall",CheckToken, async (req, res) => {
   try {
     const documents = await form1.find();
     res.status(200).json(documents);
@@ -183,7 +189,7 @@ app.get("/form1-findall", async (req, res) => {
   }
 });
 
-app.get("/form1-findone", async (req, res) => {
+app.get("/form1-findone",CheckToken, async (req, res) => {
   // const {email}=req.body;
   try {
     const document = await form1.findOne({
@@ -199,7 +205,7 @@ app.get("/form1-findone", async (req, res) => {
 
 
 
-app.get("/form1/:id", async (req, res) => {
+app.get("/form1/:id",CheckToken, async (req, res) => {
   try {
     const document = await form1.findById(req.params.id);
     res.status(200).json(document);
@@ -245,7 +251,7 @@ app.put("/form1-update-many", async (req, res) => {
 
 
 
-app.put("/form1-find-by-id-and-update", async (req, res) => {
+app.put("/form1-find-by-id-and-update",CheckToken, async (req, res) => {
   try {
     const { _id, country } = req.body;
     if (!_id) 
@@ -270,7 +276,7 @@ app.put("/form1-find-by-id-and-update", async (req, res) => {
 
 
 
-app.put('/form1-update-one', async (req, res) => {
+app.put('/form1-update-one',CheckToken, async (req, res) => {
   const {country, city}=req.body;
   try {
    
@@ -297,7 +303,7 @@ app.put('/form1-update-one', async (req, res) => {
 });
 
 
-app.delete('/form1-delete-many', async (req, res) => {
+app.delete('/form1-delete-many',CheckToken, async (req, res) => {
 
   try {
     const { email } = req.body;
@@ -319,7 +325,7 @@ app.delete('/form1-delete-many', async (req, res) => {
 });
 
 
-app.get('/form1-count-documents', async (req, res) => {
+app.get('/form1-count-documents',CheckToken, async (req, res) => {
   try {
 
     const {country}=req.body
@@ -331,7 +337,7 @@ app.get('/form1-count-documents', async (req, res) => {
   }
 });
 
-app.put('/form1-find-by-id-and-update/:id', async (req, res) => {
+app.put('/form1-find-by-id-and-update/:id',CheckToken, async (req, res) => {
   try {
     const updatedDocument = await form1.findByIdAndUpdate(req.params.id, req.body.update, { new: true });
     res.status(200).json(updatedDocument);
