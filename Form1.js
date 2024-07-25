@@ -63,8 +63,6 @@ const schema1 = Joi.object({
   email: Joi.string().email().min(6).max(30).required(),
 });
 
-
-
 function CheckToken(req, res, next) {
   console.log(req, "req");
 
@@ -91,16 +89,14 @@ function CheckToken(req, res, next) {
 }
 
 app.post("/form1", async (req, res) => {
-  const {email}=req.body;
+  const { email } = req.body;
   try {
     const val = await schema1.validateAsync(req.body);
 
+    const user = await form1.findOne({ email });
 
-    const user= await form1.findOne({email});
-
-
-    if(user){
-      return res.status(200).send("All ready exist")
+    if (user) {
+      return res.status(200).send("All ready exist");
     }
 
     const newStudent = new form1(val);
@@ -112,7 +108,7 @@ app.post("/form1", async (req, res) => {
   }
 });
 
-app.put("/form1-update", CheckToken,async (req, res) => {
+app.put("/form1-update", CheckToken, async (req, res) => {
   const { email, city } = req.body;
   try {
     const filter = { email: email };
@@ -133,9 +129,7 @@ app.put("/form1-update", CheckToken,async (req, res) => {
   }
 });
 
-
-
-app.delete("/form1-delete", CheckToken,async (req, res) => {
+app.delete("/form1-delete", CheckToken, async (req, res) => {
   const { email } = req.body;
   try {
     const check = { email: email };
@@ -158,8 +152,6 @@ app.delete("/form1-delete", CheckToken,async (req, res) => {
   }
 });
 
-
-
 app.get("/form1-get", async (req, res) => {
   try {
     const user = await form1.findOne({
@@ -180,16 +172,16 @@ app.get("/form1-get", async (req, res) => {
   }
 });
 
-app.get("/form1-findall",CheckToken, async (req, res) => {
+app.get("/form1-findall", CheckToken, async (req, res) => {
   try {
-    const documents = await form1.find();
+    const documents = await form1.find().sort({ createdAt: -1 });
     res.status(200).json(documents);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-app.get("/form1-findone",CheckToken, async (req, res) => {
+app.get("/form1-findone", CheckToken, async (req, res) => {
   // const {email}=req.body;
   try {
     const document = await form1.findOne({
@@ -203,9 +195,7 @@ app.get("/form1-findone",CheckToken, async (req, res) => {
   }
 });
 
-
-
-app.get("/form1/:id",CheckToken, async (req, res) => {
+app.get("/form1/:id", CheckToken, async (req, res) => {
   try {
     const document = await form1.findById(req.params.id);
     res.status(200).json(document);
@@ -214,53 +204,41 @@ app.get("/form1/:id",CheckToken, async (req, res) => {
   }
 });
 
-
 // Update many documents
 app.put("/form1-update-many", async (req, res) => {
   try {
-    const {city,country}=req.body;
+    const { city, country } = req.body;
 
     if (!city || !country) {
       return res.status(400).json({ message: "City and country are required" });
     }
 
+    const filter = { city };
 
-    const filter={city};
-
-
-    const update={$set:{country}};
-
+    const update = { $set: { country } };
 
     const updatedDocuments = await form1.updateMany(filter, update);
 
-
     const user = await form1.find({ city });
 
-
     res.status(200).json({
-      CountData: updatedDocuments.modifiedCount,  // Use modifiedCount to get the count of updated documents
+      CountData: updatedDocuments.modifiedCount, // Use modifiedCount to get the count of updated documents
       DataUser: user,
     });
-
-
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-
-
-
-app.put("/form1-find-by-id-and-update",CheckToken, async (req, res) => {
+app.put("/form1-find-by-id-and-update", CheckToken, async (req, res) => {
   try {
     const { _id, country } = req.body;
-    if (!_id) 
-      return res.status(400).json({ message: "ID is required" });
+    if (!_id) return res.status(400).json({ message: "ID is required" });
 
     const updatedDocument = await form1.findByIdAndUpdate(
       _id,
       { $set: { country } },
-      { new: true }  
+      { new: true }
     );
 
     if (!updatedDocument) {
@@ -273,38 +251,30 @@ app.put("/form1-find-by-id-and-update",CheckToken, async (req, res) => {
   }
 });
 
-
-
-
-app.put('/form1-update-one',CheckToken, async (req, res) => {
-  const {country, city}=req.body;
+app.put("/form1-update-one", CheckToken, async (req, res) => {
+  const { country, city } = req.body;
   try {
-   
-    const filter={country};
-    const update={city};
+    const filter = { country };
+    const update = { city };
 
     // const user=await form1.findOne({
     //   country:req.body.country, city:req.body.city
     // })
 
-    const updatedDocument = await form1.updateOne(filter,update);
+    const updatedDocument = await form1.updateOne(filter, update);
 
-    const user=await form1.findOne(filter);
+    const user = await form1.findOne(filter);
 
-    
     res.status(200).json({
-      data:updatedDocument,
-        user:user
+      data: updatedDocument,
+      user: user,
     });
-    
-  } catch (err){
+  } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-
-app.delete('/form1-delete-many',CheckToken, async (req, res) => {
-
+app.delete("/form1-delete-many", CheckToken, async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -324,28 +294,29 @@ app.delete('/form1-delete-many',CheckToken, async (req, res) => {
   }
 });
 
-
-app.get('/form1-count-documents',CheckToken, async (req, res) => {
+app.get("/form1-count-documents", CheckToken, async (req, res) => {
   try {
+    const { country } = req.body;
 
-    const {country}=req.body
-
-    const count = await form1.countDocuments({country});
+    const count = await form1.countDocuments({ country });
     res.status(200).json({ count });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-app.put('/form1-find-by-id-and-update/:id',CheckToken, async (req, res) => {
+app.put("/form1-find-by-id-and-update/:id", CheckToken, async (req, res) => {
   try {
-    const updatedDocument = await form1.findByIdAndUpdate(req.params.id, req.body.update, { new: true });
+    const updatedDocument = await form1.findByIdAndUpdate(
+      req.params.id,
+      req.body.update,
+      { new: true }
+    );
     res.status(200).json(updatedDocument);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
-
 
 app.post("/form1-login", CheckToken, (req, res) => {
   console.log("inside form", req.body);
@@ -358,5 +329,3 @@ app.post("/form1-login", CheckToken, (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-
