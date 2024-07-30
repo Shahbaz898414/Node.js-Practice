@@ -174,8 +174,58 @@ app.get("/form1-get", async (req, res) => {
 
 app.get("/form1-findall", CheckToken, async (req, res) => {
   try {
-    const documents = await form1.find().sort({ createdAt: -1 });
+    const documents = await form1.find()
     res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+app.get("/form1-assending", CheckToken, async (req, res) => {
+  try {
+    const documents = await form1.find().sort({ createdAt: 1 });
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get("/form1-deseending", CheckToken, async (req, res) => {
+  try {
+    const documents = await form1.find().sort({ createdAt: -1});
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get("/form1-skip-limit", async (req, res) => {
+  try {
+    const perPage=parseInt(req.query.perPage)
+    const pageNo=req.query.pageNo;
+
+    const documents = await form1.find().skip(2).limit(5);
+
+    const count=await form1.countDocuments();
+
+    res.status(200).json({doc:documents, count:count });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+app.get("/form1-skip-limit2", async (req, res) => {
+  try {
+    const perPage=parseInt(req.query.perPage)
+    const pageNo=req.query.pageNo;
+
+    const documents = await form1.find().skip((pageNo-1)*perPage).limit(perPage);
+
+    const count=await form1.countDocuments();
+
+    res.status(200).json({doc:documents, count:count });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -329,3 +379,6 @@ app.post("/form1-login", CheckToken, (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
+

@@ -292,6 +292,57 @@ app.get("/form2-findall",CheckToken, async (req, res) => {
 });
 
 
+app.get("/form2-assending", CheckToken, async (req, res) => {
+  try {
+    const documents = await form2.find().sort({ createdAt: 1 });
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get("/form2-deseending", CheckToken, async (req, res) => {
+  try {
+    const documents = await form2.find().sort({ createdAt: -1});
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get("/form2-skip-limit", async (req, res) => {
+  try {
+    const perPage=parseInt(req.query.perPage)
+    const pageNo=req.query.pageNo;
+
+    const documents = await form2.find().skip(2).limit(5);
+
+    const count=await form2.countDocuments();
+
+    res.status(200).json({doc:documents, count:count });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+app.get("/form2-skip-limit2", async (req, res) => {
+  try {
+    const perPage=parseInt(req.query.perPage)
+    const pageNo=req.query.pageNo;
+
+    const documents = await form2.find().skip((pageNo-1)*perPage).limit(perPage);
+
+    const count=await form2.countDocuments();
+
+    res.status(200).json({doc:documents, count:count });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
 app.get("/form2-findone",CheckToken, async (req, res) => {
   // const {email}=req.body;
   try {

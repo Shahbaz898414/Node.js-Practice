@@ -109,7 +109,6 @@ app.get("/form4-get", async (req, res) => {
   try {
     const user = await form4.findOne({
       department: req.body.department,
-
       driversLicenseNo: req.body.driversLicenseNo,
       phone: req.body.phone,
     });
@@ -180,6 +179,27 @@ app.get("/form4-findall",CheckToken, async (req, res) => {
     const documents = await form4.find();
     res.status(200).json({
       val:documents});
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+
+app.get("/form4-assending", CheckToken, async (req, res) => {
+  try {
+    const documents = await form4.find().sort({ createdAt: 1 });
+    res.status(200).json(documents);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+app.get("/form4-deseending", CheckToken, async (req, res) => {
+  try {
+    const documents = await form4.find().sort({ createdAt: -1});
+    res.status(200).json(documents);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
